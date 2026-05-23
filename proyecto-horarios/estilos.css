@@ -1,0 +1,472 @@
+/* =========================
+   CONFIGURACION GLOBAL
+========================= */
+
+:root{
+
+    /* COLORES INSTITUCIONALES */
+
+    --orange-tec:#FF9900;
+    --blue-tec:#1F3A5F;
+
+    /* COLORES SECUNDARIOS */
+
+    --background:#f4f6f9;
+    --text:#333;
+    --white:#ffffff;
+    --gray:#666;
+    --border:#ddd;
+
+    /* TIPOGRAFIA */
+
+    --font-main:'Montserrat', sans-serif;
+
+    /* TAMAÑOS */
+
+    --font-small:0.875rem;   /* 14px */
+    --font-base:1rem;        /* 16px */
+    --font-large:1.125rem;   /* 18px */
+
+    /* PESOS */
+
+    --weight-normal:400;
+    --weight-medium:500;
+    --weight-semibold:600;
+    --weight-bold:700;
+
+}
+
+
+/* =========================
+   RESET GENERAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+    font-family:var(--font-main);
+
+    background:var(--background);
+
+    color:var(--text);
+
+    font-size:var(--font-base);
+
+    font-weight:var(--weight-normal);
+}
+
+/* NAVBAR */
+/* Para hacer la barra de navegación mas pequeña */
+.navbar{
+    background:var(--blue-tec);
+    color:white;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo-area img{
+    height: 34px;
+    width: auto;
+}
+
+.titulo-navbar{
+    color:var(--white);
+    font-size:var(--font-small);
+    font-weight:var(--weight-medium);
+}
+
+.menu{
+    display:flex;
+    gap:20px;
+}
+
+.menu a{
+    color:var(--white);
+    text-decoration:none;
+    font-size:var(--font-small);
+    font-weight:var(--weight-medium);
+}
+
+.menu a:hover{
+    opacity:0.8;
+}
+
+.usuario{
+    font-weight:bold;
+}
+
+.hamburguesa{
+    display:none;
+    background:none;
+    border:none;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* CONTENIDO */
+/* APLICAR ESTO PARA QUE LA INTERFAZ ESTE MAS CENTRADA */
+.contenedor{
+    max-width: 750px; /*Aqui cambio el tamaño del contenedor*/
+    margin: 0 auto;
+    padding:25px;
+}
+
+.titulo-pagina{
+    margin-bottom:30px;
+}
+
+.grid-paneles{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card h3{
+    font-size:var(--font-large);
+    font-weight:var(--weight-semibold);
+    margin-bottom:10px;
+}
+
+.card p{
+    color:var(--gray);
+    font-size:var(--font-small);
+    margin-bottom:18px;
+}
+
+.card:hover{
+    transform: translateY(-4px);
+}
+
+/* BOTONES */
+
+.btn{
+    background:var(--blue-tec);
+    color:var(--white);
+    border:none;
+    padding:8px 15px;
+    font-size:var(--font-small);
+    font-weight:var(--weight-medium);
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#244b88;
+    transform: scale(1.03);
+}
+
+/* TABLAS */
+
+.tabla-contenedor{
+    margin-top:15px;
+
+    background:white;
+    padding:20px;
+    border-radius:14px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:var(--blue-tec);
+    color:var(--white);
+    padding:10px;
+    font-weight:var(--weight-semibold);
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:999;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido{
+    background:white;
+    width:100%;
+    max-width:500px;
+    /* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHH*/
+    /*margin:80px auto;*/
+
+    border-radius:12px;
+    overflow:hidden;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header{
+    background:#f4f6f9;
+
+    padding:20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.cerrar{
+    font-size:30px;
+    cursor:pointer;
+}
+
+.tabs{
+    display:flex;
+    border-bottom:1px solid #ddd;
+}
+
+.tab-btn{
+    flex:1;
+    padding:12px;
+    border:none;
+    background:#f5f5f5;
+    cursor:pointer;
+}
+
+.tab-btn.active{
+    background:white;
+    font-weight:bold;
+    border-bottom:3px solid #1B396A;
+}
+
+.tab-contenido{
+    padding:20px;
+}
+
+.oculto{
+    display:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .menu{
+        display:none;
+    }
+
+    .hamburguesa{
+        display:block;
+    }
+
+    .contenedor{
+        padding:15px;
+    }
+
+    .modal-contenido{
+        width:95%;
+        margin:20px auto;
+    }
+
+    table{
+        font-size:13px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .menu{
+        display:none;
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:#1B396A;
+        flex-direction:column;
+        padding:15px 0;
+    }
+
+    .menu a{
+        padding:12px 20px;
+    }
+
+}
+
+.resultado{
+
+    padding:12px;
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+}
+
+.aprobado{
+
+    background:#d4edda;
+    color:#155724;
+}
+
+.rechazado{
+
+    background:#f8d7da;
+    color:#721c24;
+}
+
+.grupo-card{
+
+    background:#f4f6f9;
+
+    border-left:5px solid #1B396A;
+
+    padding:15px;
+
+    margin-bottom:12px;
+
+    border-radius:8px;
+}
+
+.estado-asignado{
+
+    background:#d4edda;
+    color:#155724;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+/* MODAL GRANDE */
+
+.modal-grande{
+
+    max-width:550px;
+}
+
+
+/* ESTADISTICAS */
+
+.estadisticas-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(70px,1fr));
+
+    gap:12px;
+
+    margin-bottom:15px;
+}
+
+
+.estadistica-card{
+
+    background:#f4f6f9;
+
+    padding:19px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    border-left:5px solid #1B396A;
+}
+
+
+.estadistica-card h3{
+    font-size:1.4rem;
+    color:var(--blue-tec);
+    margin-bottom:12px;
+    font-weight:var(--weight-bold);
+}
+
+
+/* ESTADO FINAL */
+
+.estado-final{
+
+    background:#d4edda;
+
+    color:#155724;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    margin-bottom:25px;
+}
+
+
+/* BOTONES FINALES */
+
+.acciones-finales{
+
+    margin-top:20px;
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+
+.btn-secundario{
+
+    background:#6c757d;
+}
+
+.btn-secundario:hover{
+
+    background:#5a6268;
+}
