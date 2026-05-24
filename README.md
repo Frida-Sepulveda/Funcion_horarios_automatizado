@@ -4,17 +4,22 @@ Proyecto realizado en Laravel 12.
 # Funcion_horarios_automatizado
 Parte lógica de horarios automatizados de inglés. 
 
-Hola Ana! Pase por completo el proyecto de horarios con las interfaces 
-pero aun no esta en laravel 12. 
+----------------------------------------------------------------------------
+° Recuerda configurar el proyecto con inertia.js y React para el frontend. |
+° Y poner el comando "npm run dev" para prender el servidor del proyecto.  |
+° Ya he conectado la base de datos al proyecto :D                          |
+----------------------------------------------------------------------------
+
+Ya está en laravel 12. 
 
 | Módulo                      | Responsable |
 | --------------------------- | ----------- |
-| Login                       | Ana         |
+| Login                       | Ana         | //No es necesario hacer el login pq laravel ya lo hace x nosotras
 | CRUD docentes               | Ambas       |
 | CRUD materias               | Ambas       |
 | CRUD alumnos                | Frida       |
 | Diseño dashboard            | Frida       |
-| Base de datos               | Ana         |
+| Base de datos               | Ana         | //Ya hice esto también pq ocupaba hacer pruebas
 | Migraciones Laravel         | Ana         |
 | Formularios React           | Frida       |
 | Tablas y vistas             | Frida       |
