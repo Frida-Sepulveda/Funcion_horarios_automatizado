@@ -12,6 +12,7 @@ class Student extends Model
         'last_name',
         'email',
         'sublevel',
+        'modalidad',
         'tipo_horario',
         'turno',
         'status',
