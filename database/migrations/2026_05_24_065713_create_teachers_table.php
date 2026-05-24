@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->enum('modalidad', [
+                'Presencial',
+                'Virtual',
+                'Mixta'
+            ]);
+            $table->integer('max_hours')->default(20);
+            $table->integer('current_hours')->default(0);
+            $table->enum('status', [
+                'Activo',
+                'Inactivo'
+            ])->default('Activo');
             $table->timestamps();
         });
     }

@@ -12,7 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedule_blocks', function (Blueprint $table) {
+
             $table->id();
+
+            $table->string('day');
+
+            $table->time('start_time');
+
+            $table->time('end_time');
+
+            $table->enum('turno', [
+                'Manana',
+                'Tarde'
+            ]);
+
+            $table->enum('tipo_horario', [
+                'LM',
+                'MJ',
+                'Intensivo'
+            ]);
+
             $table->timestamps();
         });
     }

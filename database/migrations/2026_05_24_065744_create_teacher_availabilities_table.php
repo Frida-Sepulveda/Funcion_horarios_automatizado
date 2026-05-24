@@ -12,7 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teacher_availabilities', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('teacher_id')
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->string('day');
+
+            $table->time('start_time');
+
+            $table->time('end_time');
+
             $table->timestamps();
         });
     }

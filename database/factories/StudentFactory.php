@@ -21,7 +21,7 @@ class StudentFactory extends Factory
             'modalidad' => fake()->randomElement([
                 'Presencial', 'Virtual']),
             'tipo_horario' => fake()->randomElement([
-                'LM', 'MJ', 'Sabatino', 'Intensivo']),
+                'LM', 'MJ', 'Intensivo']),
             'turno' => fake()->randomElement([
                 'Mañana', 'Tarde']),
             'status' => 'Inscrito'

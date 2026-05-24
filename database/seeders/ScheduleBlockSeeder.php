@@ -74,7 +74,7 @@ class ScheduleBlockSeeder extends Seeder
                 'start_time' => $horaInicioSabado->format('H:i:s'),
                 'end_time' => $horaFinSabado->format('H:i:s'),
                 'turno' => 'Manana',
-                'tipo_horario' => 'Sabatino'
+                'tipo_horario' => 'Intensivo'
             ]);
 
             $horaInicioSabado = $horaFinSabado;

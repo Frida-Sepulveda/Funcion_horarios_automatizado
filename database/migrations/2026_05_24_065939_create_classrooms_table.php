@@ -12,7 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('classrooms', function (Blueprint $table) {
+
             $table->id();
+
+            $table->string('name');
+
+            $table->string('building');
+
+            $table->integer('capacity');
+
+            $table->enum('type', [
+                'Normal',
+                'Magna'
+            ]);
+
+            $table->enum('status', [
+                'Disponible',
+                'Ocupada'
+            ])->default('Disponible');
+
             $table->timestamps();
         });
     }
