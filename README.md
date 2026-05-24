@@ -14,12 +14,12 @@ Ya está en laravel 12.
 
 | Módulo                      | Responsable |
 | --------------------------- | ----------- |
-| Login                       | Ana         | //No es necesario hacer el login pq laravel ya lo hace x nosotras
+| Login                       | Ana         | No es necesario hacer el login pq laravel ya lo hace x nosotras
 | CRUD docentes               | Ambas       |
 | CRUD materias               | Ambas       |
 | CRUD alumnos                | Frida       |
 | Diseño dashboard            | Frida       |
-| Base de datos               | Ana         | //Ya hice esto también pq ocupaba hacer pruebas
+| Base de datos               | Ana         | Ya hice esto también pq ocupaba hacer pruebas
 | Migraciones Laravel         | Ana         |
 | Formularios React           | Frida       |
 | Tablas y vistas             | Frida       |
