@@ -11,15 +11,17 @@ Parte lógica de horarios automatizados de inglés.
 ----------------------------------------------------------------------------
 
 Ya está en laravel 12. 
+No es necesario hacer el login pq laravel ya lo hace x nosotras.
+Ya hice la Base de datos pq ocupaba hacer pruebas con registros.
 
 | Módulo                      | Responsable |
 | --------------------------- | ----------- |
-| Login                       | Ana         | No es necesario hacer el login pq laravel ya lo hace x nosotras
+| Login                       | Ana         | 
 | CRUD docentes               | Ambas       |
 | CRUD materias               | Ambas       |
 | CRUD alumnos                | Frida       |
 | Diseño dashboard            | Frida       |
-| Base de datos               | Ana         | Ya hice esto también pq ocupaba hacer pruebas
+| Base de datos               | Ana         | 
 | Migraciones Laravel         | Ana         |
 | Formularios React           | Frida       |
 | Tablas y vistas             | Frida       |
