@@ -18,7 +18,7 @@ Ya hice la Base de datos pq ocupaba hacer pruebas con registros.
 | --------------------------- | ----------- |
 | Login                       | Ana         | 
 | CRUD docentes               | Ambas       |
-| CRUD materias               | Ambas       |
+| CRUD aulas                  | Ambas       |
 | CRUD alumnos                | Frida       |
 | Diseño dashboard            | Frida       |
 | Base de datos               | Ana         | 
