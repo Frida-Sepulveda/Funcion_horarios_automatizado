@@ -12,12 +12,17 @@ class ScheduleBlock extends Model
         'day',
         'start_time',
         'end_time',
-        'turno',
-        'tipo_horario'
+        'shift',
+        'schedule_type'
     ];
 
     public function schedules()
     {
         return $this->hasMany(Schedule::class);
+    }
+    
+    public function teacherAvailabilities()
+    {
+        return $this->hasMany(TeacherAvailability::class);
     }
 }

@@ -10,13 +10,17 @@ class TeacherAvailability extends Model
     use HasFactory;
     protected $fillable = [
         'teacher_id',
-        'day',
-        'start_time',
-        'end_time'
+        'schedule_block_id',
+        'is_available'
     ];
 
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function scheduleBlock()
+    {
+        return $this->belongsTo(ScheduleBlock::class);
     }
 }

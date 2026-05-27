@@ -9,13 +9,37 @@ class Teacher extends Model
 {
     use HasFactory;
     protected $fillable = [
+
         'first_name',
+
         'last_name',
+
         'email',
+
         'phone',
-        'modalidad',
+
+        'category',
+
+        'mcer_level',
+
+        'rfc',
+
+        'curp',
+
+        'bank_clabe',
+
+        'ttc_hours',
+
+        'academic_degree',
+
+        'is_native',
+
+        'modality',
+
         'max_hours',
+
         'current_hours',
+
         'status'
     ];
 

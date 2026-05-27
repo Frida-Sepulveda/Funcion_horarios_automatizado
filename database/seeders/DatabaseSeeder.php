@@ -23,10 +23,13 @@ class DatabaseSeeder extends Seeder
         ]); */
 
         $this->call([
+            LevelSeeder::class,
+            CareerSeeder::class,
             TeacherSeeder::class,
             StudentSeeder::class,
             ClassroomSeeder::class,
             ScheduleBlockSeeder::class,
+            TeacherAvailabilitySeeder::class,
         ]);
     }
 }

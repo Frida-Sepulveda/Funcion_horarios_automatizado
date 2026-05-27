@@ -12,36 +12,81 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
+
             $table->id();
-            $table->string('matricula')->unique();
+
+            // Datos personales
+            $table->string('control_number')
+                ->nullable()
+                ->unique();
+
             $table->string('first_name');
+
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->enum('sublevel',[
-                'A1',
-                'A2',
-                'B1',
-                'B2',
-                'C1',
-                'C2'
+
+            $table->enum('gender', ['M', 'F']);
+
+            $table->date('birth_date')
+                ->nullable();
+
+            // Carrera
+            $table->foreignId('career_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
+            // Semestre
+            $table->unsignedTinyInteger('semester')
+                ->nullable();
+
+            // Nivel institucional
+            $table->foreignId('level_id')
+                ->constrained();
+
+            // Tipo alumno
+            $table->enum('student_type', [
+                'Vigente',
+                'Egresado'
             ]);
-            $table->enum('modalidad', [
+
+            // Estado
+            $table->enum('status', [
+                'En Espera',
+                'Vigente',
+                'Inhabilitado',
+                'En Revision',
+                'Acreditado',
+                'Elegible',
+                'Liberado'
+            ])->default('En Espera');
+
+            // Acreditación
+            $table->string('accreditation_origin')
+                ->nullable();
+
+            $table->date('accreditation_date')
+                ->nullable();
+
+            /*
+            DATOS TEMPORALES DE INSCRIPCION
+            */
+
+            $table->enum('modality', [
                 'Presencial',
                 'Virtual'
-            ]);
-            $table->enum('tipo_horario', [
+            ])->nullable();
+
+            $table->enum('schedule_type', [
                 'LM',
                 'MJ',
                 'Intensivo'
-            ]);
-            $table->enum('turno', [
+            ])->nullable();
+
+            $table->enum('shift', [
                 'Manana',
                 'Tarde'
-            ]);
-            $table->enum('status', [
-                'Inscrito',
-                'Baja'
-            ])->default('Inscrito');
+            ])->nullable();
+
             $table->timestamps();
         });
     }

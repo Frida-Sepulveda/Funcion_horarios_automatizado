@@ -21,16 +21,24 @@ return new class extends Migration
 
             $table->time('end_time');
 
-            $table->enum('turno', [
+            $table->enum('shift', [
                 'Manana',
                 'Tarde'
             ]);
 
-            $table->enum('tipo_horario', [
+            $table->enum('schedule_type', [
                 'LM',
                 'MJ',
                 'Intensivo'
             ]);
+
+            $table->unique([
+                'day', 
+                'start_time', 
+                'end_time',
+                'shift', 
+                'schedule_type'],
+                'schedule_block_unique');
 
             $table->timestamps();
         });

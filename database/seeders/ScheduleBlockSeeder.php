@@ -32,8 +32,8 @@ class ScheduleBlockSeeder extends Seeder
                         'day' => $dia,
                         'start_time' => $horaInicio->format('H:i:s'),
                         'end_time' => $horaFin->format('H:i:s'),
-                        'turno' => 'Manana',
-                        'tipo_horario' => $tipo
+                        'shift' => 'Manana',
+                        'schedule_type' => $tipo
                     ]);
 
                     $horaInicio = $horaFin;
@@ -51,8 +51,8 @@ class ScheduleBlockSeeder extends Seeder
                         'day' => $dia,
                         'start_time' => $horaInicio->format('H:i:s'),
                         'end_time' => $horaFin->format('H:i:s'),
-                        'turno' => 'Tarde',
-                        'tipo_horario' => $tipo
+                        'shift' => 'Tarde',
+                        'schedule_type' => $tipo
                     ]);
 
                     $horaInicio = $horaFin;
@@ -73,8 +73,8 @@ class ScheduleBlockSeeder extends Seeder
                 'day' => 'Sabado',
                 'start_time' => $horaInicioSabado->format('H:i:s'),
                 'end_time' => $horaFinSabado->format('H:i:s'),
-                'turno' => 'Manana',
-                'tipo_horario' => 'Intensivo'
+                'shift' => 'Manana',
+                'schedule_type' => 'Intensivo'
             ]);
 
             $horaInicioSabado = $horaFinSabado;

@@ -19,11 +19,19 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
 
-            $table->string('day');
+            $table->foreignId('schedule_block_id')
+                ->constrained()
+                ->onDelete('cascade');
 
-            $table->time('start_time');
+            $table->boolean('is_available')->default(true);
 
-            $table->time('end_time');
+            /*
+            Evita duplicar disponibilidad
+            */
+            $table->unique([
+                'teacher_id',
+                'schedule_block_id'
+            ]);
 
             $table->timestamps();
         });

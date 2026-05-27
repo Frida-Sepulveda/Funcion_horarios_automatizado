@@ -8,22 +8,59 @@ class ClassroomFactory extends Factory
 {
     public function definition(): array
     {
+        $type = fake()->randomElement([
+            'Presencial',
+            'Virtual'
+        ]);
+
+        if ($type === 'Virtual') {
+
+            return [
+
+                'name' => fake()->randomElement([
+                    'Virtual-1',
+                    'Virtual-2',
+                    'Sala Teams',
+                    'Meet-1'
+                ]),
+
+                'building' => null,
+
+                'max_capacity' => fake()->numberBetween(50, 200),
+
+                'type' => 'Virtual',
+
+                'platform' => fake()->randomElement([
+                    'Teams',
+                    'Google Meet',
+                    'Zoom'
+                ]),
+
+                'status' => 'Disponible'
+            ];
+        }
+
         return [
 
-            'name' => 'Aula ' . fake()->numberBetween(1, 10),
-
-            'building' => 'Edificio Y',
-
-            'capacity' => fake()->randomElement([
-                25,
-                30,
-                35
+            'name' => fake()->randomElement([
+                'Y1',
+                'Y2',
+                'Y3',
+                'Y4',
+                'Y5',
+                'Y6'
             ]),
 
-            'type' => fake()->randomElement([
-                'Normal',
-                'Magna'
+            'building' => fake()->randomElement([
+                'Edificio Y',
+                'Edificio Z'
             ]),
+
+            'max_capacity' => fake()->numberBetween(20, 100),
+
+            'type' => 'Presencial',
+
+            'platform' => null,
 
             'status' => 'Disponible'
         ];

@@ -12,22 +12,79 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teachers', function (Blueprint $table) {
+
             $table->id();
+
+            // Datos personales
             $table->string('first_name');
+
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->enum('modalidad', [
+
+            $table->string('email')
+                ->unique();
+
+            $table->string('phone')
+                ->nullable();
+
+            // Categoría
+            $table->enum('category', [
+                'A',
+                'B',
+                'C'
+            ]);
+
+            // Nivel MCER
+            $table->enum('mcer_level', [
+                'A1',
+                'A2',
+                'B1',
+                'B2',
+                'C1',
+                'C2'
+            ]);
+
+            // Datos administrativos
+            $table->string('rfc')
+                ->nullable()
+                ->unique();
+
+            $table->string('curp')
+                ->nullable()
+                ->unique();
+
+            $table->string('bank_clabe', 18)
+                ->nullable();
+
+            $table->integer('ttc_hours')
+                ->default(0);
+
+            $table->string('academic_degree')
+                ->nullable();
+
+            $table->boolean('is_native')
+                ->default(false);
+
+            /*
+            DATOS DEL SISTEMA
+            */
+
+            $table->enum('modality', [
                 'Presencial',
                 'Virtual',
                 'Mixta'
             ]);
-            $table->integer('max_hours')->default(20);
-            $table->integer('current_hours')->default(0);
+
+            $table->integer('max_hours')
+                ->default(20);
+
+            $table->integer('current_hours')
+                ->default(0);
+
             $table->enum('status', [
                 'Activo',
                 'Inactivo'
             ])->default('Activo');
+
             $table->timestamps();
         });
     }

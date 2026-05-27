@@ -17,18 +17,21 @@ return new class extends Migration
 
             $table->string('name');
 
-            $table->string('building');
+            $table->string('building')->nullable();
 
-            $table->integer('capacity');
+            $table->integer('max_capacity');
 
             $table->enum('type', [
-                'Normal',
-                'Magna'
+                'Presencial',
+                'Virtual'
             ]);
+
+            $table->string('platform')->nullable();
 
             $table->enum('status', [
                 'Disponible',
-                'Ocupada'
+                'Mantenimiento',
+                'Inactiva'
             ])->default('Disponible');
 
             $table->timestamps();
