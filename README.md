@@ -10,9 +10,13 @@ Parte lógica de horarios automatizados de inglés.
 ° Ya he conectado la base de datos al proyecto :D                          |
 ----------------------------------------------------------------------------
 
-Ya está en laravel 12. 
-No es necesario hacer el login pq laravel ya lo hace x nosotras.
-Ya hice la Base de datos pq ocupaba hacer pruebas con registros.
+✓ Ya está en laravel 12. 
+✓ No es necesario hacer el login pq laravel ya lo hace x nosotras.
+✓ Ya hice la Base de datos pq ocupaba hacer pruebas con registros.
+✓ El CRUD de docentes ya esta hecho 
+
+Observaciones de la maestra: 
+
 
 | Módulo                      | Responsable |
 | --------------------------- | ----------- |

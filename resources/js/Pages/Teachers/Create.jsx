@@ -53,6 +53,58 @@ export default function Create() {
                     className="border p-2 w-full"
                 />
 
+                <input
+                    type="tel"
+                    placeholder="Teléfono"
+                    value={data.phone}
+                    onChange={e => setData('phone', e.target.value)}
+                    className="border p-2 w-full"
+                />
+
+                <select
+                    value={data.modalidad}
+                    onChange={e => setData('modalidad', e.target.value)}
+                    className="border p-2 w-full"
+                >
+
+                    <option value="Presencial">
+                        Presencial
+                    </option>
+
+                    <option value="Virtual">
+                        Virtual
+                    </option>
+
+                    <option value="Mixta">
+                        Mixta
+                    </option>
+
+                </select>
+
+                <input
+                    type="number"
+                    placeholder="Horas máximas"
+                    value={data.max_hours}
+                    onChange={e => setData('max_hours', e.target.value)}
+                    className="border p-2 w-full"
+                /> 
+
+                <select
+                    value={data.status}
+                    onChange={e => setData('status', e.target.value)}
+                    className="border p-2 w-full"
+                >
+
+                    <option value="activo">
+                        Activo
+                    </option>
+
+                    <option value="inactivo">
+                        Inactivo
+                    </option>
+
+                </select>
+
                 <button
                     type="submit"
                     className="bg-green-500 text-white px-4 py-2 rounded"

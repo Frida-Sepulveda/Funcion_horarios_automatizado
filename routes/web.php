@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ClassroomController;
 
 Route::resource('teachers', TeacherController::class);
+Route::resource('classrooms', ClassroomController::class);
 
 Route::get('/', function () {
     return Inertia::render('Home');

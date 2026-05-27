@@ -30,6 +30,7 @@ export default function Index({ teachers }) {
                         <th className="p-2">Nombre</th>
                         <th className="p-2">Email</th>
                         <th className="p-2">Modalidad</th>
+                        <th className="p-2">Estado</th>
                         <th className="p-2">Acciones</th>
                     </tr>
                 </thead>
@@ -50,6 +51,14 @@ export default function Index({ teachers }) {
 
                             <td className="border p-2">
                                 {teacher.modalidad}
+                            </td>
+
+                            <td className="border p-2">
+                                {teacher.status === 'Activo' ? (
+                                    <span className="text-green-500">Activo</span>
+                                ) : (
+                                    <span className="text-red-500">Inactivo</span>
+                                )}
                             </td>
 
                             <td className="border p-2">
