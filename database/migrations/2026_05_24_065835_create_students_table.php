@@ -99,3 +99,35 @@ return new class extends Migration
         Schema::dropIfExists('students');
     }
 };
+
+// mi codigo 
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->string('no_control')->nullable(); // Nulo para externos o egresados antiguos
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->char('genero', 1); // M o F
+            $table->date('fecha_nacimiento');
+            
+            // Relación con Carreras
+            $table->foreignId('career_id')->constrained()->onDelete('cascade');
+            
+            $table->integer('semestre'); // 1 al 13
+            $table->integer('nivel_id'); // 1 al 10 (Básico 1 a Intermedio 5)
+            $table->string('tipo_estudiante'); // Vigente o Egresado
+            $table->string('estado'); // Elegible para Inscripción, Vigente, etc.
+            $table->string('origen_acreditacion')->nullable();
+            $table->date('fecha_acreditacion')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('students');
+    }
+};
