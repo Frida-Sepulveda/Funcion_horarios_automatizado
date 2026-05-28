@@ -57,3 +57,20 @@ class Student extends Model
         return $this->belongsTo(Level::class);
     }
 }
+// mi codigo 
+class Student extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'no_control', 'nombres', 'apellidos', 'genero', 'fecha_nacimiento',
+        'career_id', 'semestre', 'nivel_id', 'tipo_estudiante', 'estado',
+        'origen_acreditacion', 'fecha_acreditacion'
+    ];
+
+    // Relación con Carrera
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
+}
