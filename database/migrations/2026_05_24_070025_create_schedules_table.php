@@ -16,26 +16,21 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('group_id')
-                ->constrained('groups_table')
-                ->onDelete('cascade');
-
-            $table->foreignId('teacher_id')
                 ->constrained()
-                ->onDelete('cascade');
+                ->cascadeonDelete();
 
-            $table->foreignId('classroom_id')
-                ->nullable()
+            /*$table->foreignId('teacher_id')
                 ->constrained()
-                ->onDelete('set null');
+                ->cascadeOnDelete(); */
 
             $table->foreignId('schedule_block_id')
                 ->constrained()
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
 
-            $table->enum('status', [
-                'Activo',
-                'Reprogramado'
-            ])->default('Activo');
+            $table->unique([
+                'group_id',
+                'schedule_block_id'
+            ]);
 
             $table->timestamps();
         });

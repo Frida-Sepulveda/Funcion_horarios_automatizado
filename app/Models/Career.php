@@ -18,7 +18,7 @@ class Career extends Model
     }
 }
 //mi codigo
-class Career extends Model
+/*class Career extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre', 'plan_estudios'];
@@ -27,4 +27,4 @@ class Career extends Model
     {
         return $this->hasMany(Student::class);
     }
-}
+}*/

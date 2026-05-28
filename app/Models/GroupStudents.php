@@ -15,7 +15,7 @@ class GroupStudents extends Model
 
     public function group()
     {
-        return $this->belongsTo(GroupTable::class);
+        return $this->belongsTo(Group::class);
     }
 
     public function student()

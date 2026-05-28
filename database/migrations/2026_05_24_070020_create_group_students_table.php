@@ -16,12 +16,17 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('group_id')
-                ->constrained('groups_table')
-                ->onDelete('cascade');
+                ->constrained()
+                ->cascadeonDelete();
 
             $table->foreignId('student_id')
-                ->constrained('students')
-                ->onDelete('cascade');
+                ->constrained()
+                ->cascadeonDelete();
+
+            $table->unique([
+                'group_id',
+                'student_id'
+            ]);
 
             $table->timestamps();
         });

@@ -43,7 +43,7 @@ class Student extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(GroupTable::class,
+        return $this->belongsToMany(Group::class,
          'group_students', 'student_id', 'group_id');
     }
 
@@ -58,7 +58,7 @@ class Student extends Model
     }
 }
 // mi codigo 
-class Student extends Model
+/*class Student extends Model
 {
     use HasFactory;
 
@@ -73,4 +73,4 @@ class Student extends Model
     {
         return $this->belongsTo(Career::class);
     }
-}
+}*/
