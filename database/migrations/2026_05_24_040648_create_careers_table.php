@@ -25,3 +25,22 @@ return new class extends Migration
         Schema::dropIfExists('careers');
     }
 };
+
+//mi codigo 
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('careers', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('plan_estudios'); // Ej: "IINF-2010-220"
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('careers');
+    }
+};
