@@ -17,3 +17,14 @@ class Career extends Model
         return $this->hasMany(Student::class);
     }
 }
+//mi codigo
+class Career extends Model
+{
+    use HasFactory;
+    protected $fillable = ['nombre', 'plan_estudios'];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+}
