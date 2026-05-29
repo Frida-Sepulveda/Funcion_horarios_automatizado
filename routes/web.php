@@ -9,7 +9,7 @@ Route::resource('teachers', TeacherController::class);
 Route::resource('classrooms', ClassroomController::class);
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    return Inertia::render('Dashboard');
 });
 
 /* Route::get('/', function () {
