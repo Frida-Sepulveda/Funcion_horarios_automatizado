@@ -23,12 +23,14 @@ export default function Index({ teachers }) {
                 Nuevo docente
             </Link>
 
-            <table className="w-full mt-6 border">
+            <table className="w-full mt-6 border shadow rounded-lg overflow-hidden">
 
                 <thead>
                     <tr className="bg-gray-200">
                         <th className="p-2">Nombre</th>
                         <th className="p-2">Email</th>
+                        <th className="p-2">Categoría</th>
+                        <th className="p-2">MCER</th>
                         <th className="p-2">Modalidad</th>
                         <th className="p-2">Estado</th>
                         <th className="p-2">Acciones</th>
@@ -39,7 +41,7 @@ export default function Index({ teachers }) {
 
                     {teachers.map((teacher) => (
 
-                        <tr key={teacher.id}>
+                        <tr key={teacher.id} className="hover:bg-gray-50">
 
                             <td className="border p-2">
                                 {teacher.first_name} {teacher.last_name}
@@ -50,7 +52,15 @@ export default function Index({ teachers }) {
                             </td>
 
                             <td className="border p-2">
-                                {teacher.modalidad}
+                            {teacher.category}
+                            </td>
+
+                            <td className="border p-2">
+                                {teacher.mcer_level}
+                            </td>
+
+                            <td className="border p-2">
+                                {teacher.modality}
                             </td>
 
                             <td className="border p-2">

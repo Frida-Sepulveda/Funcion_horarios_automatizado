@@ -32,6 +32,8 @@ export default function Index({ classrooms = [] }) {
                                 <th>Edificio</th>
                                 <th>Capacidad</th>
                                 <th>Tipo de Aula</th>
+                                <th>Plataforma</th>
+                                <th>Status</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -40,10 +42,20 @@ export default function Index({ classrooms = [] }) {
                                 classrooms.map((classroom) => (
                                     <tr key={classroom.id}>
                                         <td>{classroom.name}</td>
-                                        <td>{classroom.building}</td>
-                                        <td>{classroom.capacity}</td>
+                                        <td>
+                                            {classroom.type === 'Presencial'
+                                                ? classroom.building
+                                                : '—'}
+                                        </td>
+                                        <td>{classroom.max_capacity}</td>
                                         <td>{classroom.type}</td>
                                         <td>
+                                            {classroom.type === 'Virtual'
+                                                ? classroom.platform
+                                                : '—'}
+                                        </td>
+                                        <td>{classroom.status}</td>
+                                        <td>    
                                             <Link href={`/classrooms/${classroom.id}/edit`} style={{ marginRight: '10px', color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>
                                                 Editar
                                             </Link>

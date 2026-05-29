@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\StudentController;
 
+Route::resource('students', StudentController::class)
+    ->only(['index']);
 Route::resource('teachers', TeacherController::class);
 Route::resource('classrooms', ClassroomController::class);
 

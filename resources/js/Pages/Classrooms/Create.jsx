@@ -5,8 +5,10 @@ export default function Create() {
     const { data, setData, post, errors } = useForm({
         name: '',
         building: '',
-        capacity: '',
-        type: ''
+        max_capacity: '',
+        type: '',
+        platform: '',
+        status: ''
     });
 
     function submit(e) {
@@ -30,23 +32,13 @@ export default function Create() {
                 </div>
 
                 <div>
-                    <label>Edificio:</label>
-                    <input 
-                        type="text" 
-                        value={data.building} 
-                        onChange={e => setData('building', e.target.value)} 
-                    />
-                    {errors.building && <div>{errors.building}</div>}
-                </div>
-
-                <div>
                     <label>Capacidad:</label>
                     <input 
                         type="number" 
-                        value={data.capacity} 
-                        onChange={e => setData('capacity', e.target.value)} 
+                        value={data.max_capacity} 
+                        onChange={e => setData('max_capacity', e.target.value)} 
                     />
-                    {errors.capacity && <div>{errors.capacity}</div>}
+                    {errors.max_capacity && <div>{errors.max_capacity}</div>}
                 </div>
 
                 <div>
@@ -55,17 +47,77 @@ export default function Create() {
                         value={data.type}
                         onChange={e => setData('type', e.target.value)}
                     >
+                        <option value="">Seleccione</option>
 
-                        <option value="Normal">
-                            Normal
+                        <option value="Presencial">
+                            Presencial
                         </option>
 
-                        <option value="Magna">
-                            Magna
+                        <option value="Virtual">
+                            Virtual
+                        </option>
+                    </select>
+
+                    {data.type === 'Presencial' && (
+
+                        <div>
+                            <label>Edificio:</label>
+
+                            <input
+                                type="text"
+                                value={data.building}
+                                onChange={e => setData('building', e.target.value)}
+                            />
+
+                            {errors.building && <div>{errors.building}</div>}
+                        </div>
+                    )}
+
+                    {data.type === 'Virtual' && (
+
+                        <div>
+                            <label>Plataforma:</label>
+
+                            <select
+                                value={data.platform}
+                                onChange={e => setData('platform', e.target.value)}
+                            >
+                                <option value="">Seleccione</option>
+
+                                <option value="Teams">Microsoft Teams</option>
+
+                                <option value="Google Meet">Google Meet</option>
+
+                                <option value="Zoom">Zoom</option>
+                            </select>
+
+                            {errors.platform && <div>{errors.platform}</div>}
+                        </div>
+                    )}
+                </div>
+
+
+                <div>
+                    <label>Estado:</label>
+                    <select
+                        value={data.status}
+                        onChange={e => setData('status', e.target.value)}
+                    >
+
+                        <option value="Disponible">
+                            Disponible
+                        </option>
+
+                        <option value="Mantenimiento">
+                            Mantenimiento
+                        </option>
+
+                        <option value="Inactiva">
+                            Inactiva
                         </option>
 
                     </select>
-                    {errors.type && <div>{errors.type}</div>}
+                    {errors.status && <div>{errors.status}</div>}
                 </div>
 
                 <button type="submit">Guardar Aula</button>

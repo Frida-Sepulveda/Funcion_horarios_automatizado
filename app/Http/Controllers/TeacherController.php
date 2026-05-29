@@ -24,15 +24,23 @@ class TeacherController extends Controller
 
     public function store(Request $request)
     {
-        Teacher::create($request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-            'modalidad' => 'required',
-            'max_hours' => 'required|integer',
-            'status' => 'required'
-        ]));
+        Teacher::create($request->validate([ 
+            'first_name' => 'required|string|max:255', 
+            'last_name' => 'required|string|max:255', 
+            'email' => 'required|email|unique:teachers,email', 
+            'phone' => 'nullable|string|max:20', 
+            'category' => 'required|in:A,B,C', 
+            'mcer_level' => 'required|in:A1,A2,B1,B2,C1,C2', 
+            'rfc' => 'nullable|string|max:13', 
+            'curp' => 'nullable|string|max:18', 
+            'bank_clabe' => 'nullable|string|max:18', 
+            'ttc_hours' => 'nullable|integer|min:0', 
+            'academic_degree' => 'nullable|string|max:255', 
+            'is_native' => $request->boolean('is_native'), 
+            'modality' => 'required|in:Presencial,Virtual,Mixta', 
+            'max_hours' => 'required|integer|min:1|max:40', 
+            'status' => 'required|in:Activo,Inactivo' 
+            ]));
 
         return redirect()->route('teachers.index');
     }
@@ -47,13 +55,21 @@ class TeacherController extends Controller
     public function update(Request $request, Teacher $teacher)
     {
         $teacher->update($request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-            'modalidad' => 'required',
-            'max_hours' => 'required|integer',
-            'status' => 'required'
+            'first_name' => 'required|string|max:255', 
+            'last_name' => 'required|string|max:255', 
+            'email' => 'required|email|unique:teachers,email,' . $teacher->id, 
+            'phone' => 'nullable|string|max:20', 
+            'category' => 'required|in:A,B,C', 
+            'mcer_level' => 'required|in:A1,A2,B1,B2,C1,C2', 
+            'rfc' => 'nullable|string|max:13', 
+            'curp' => 'nullable|string|max:18', 
+            'bank_clabe' => 'nullable|string|max:18', 
+            'ttc_hours' => 'nullable|integer|min:0', 
+            'academic_degree' => 'nullable|string|max:255', 
+            'is_native' => 'required|boolean', 
+            'modality' => 'required|in:Presencial,Virtual,Mixta', 
+            'max_hours' => 'required|integer|min:1|max:40', 
+            'status' => 'required|in:Activo,Inactivo' 
         ]));
 
         return redirect()->route('teachers.index');

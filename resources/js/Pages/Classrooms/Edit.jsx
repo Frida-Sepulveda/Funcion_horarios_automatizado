@@ -5,8 +5,10 @@ export default function Edit({ classroom }) {
     const { data, setData, put, errors } = useForm({
         name: classroom.name || '',
         building: classroom.building || '',
-        capacity: classroom.capacity || '',
-        type: classroom.type || ''
+        max_capacity: classroom.max_capacity || '',
+        type: classroom.type || '',
+        platform: classroom.platform || '',
+        status: classroom.status || ''
     });
 
     function submit(e) {
@@ -30,23 +32,13 @@ export default function Edit({ classroom }) {
                 </div>
 
                 <div>
-                    <label>Edificio:</label>
-                    <input 
-                        type="text" 
-                        value={data.building} 
-                        onChange={e => setData('building', e.target.value)} 
-                    />
-                    {errors.building && <div>{errors.building}</div>}
-                </div>
-
-                <div>
                     <label>Capacidad:</label>
                     <input 
                         type="number" 
-                        value={data.capacity} 
-                        onChange={e => setData('capacity', e.target.value)} 
+                        value={data.max_capacity} 
+                        onChange={e => setData('max_capacity', e.target.value)} 
                     />
-                    {errors.capacity && <div>{errors.capacity}</div>}
+                    {errors.max_capacity && <div>{errors.max_capacity}</div>}
                 </div>
 
                 <div>
@@ -55,17 +47,76 @@ export default function Edit({ classroom }) {
                         value={data.type}
                         onChange={e => setData('type', e.target.value)}
                     >
+                        <option value="">Seleccione</option>
 
-                        <option value="Normal">
-                            Normal
+                        <option value="Presencial">
+                            Presencial
                         </option>
 
-                        <option value="Magna">
-                            Magna
+                        <option value="Virtual">
+                            Virtual
+                        </option>
+                    </select>
+
+                    {data.type === 'Presencial' && (
+
+                        <div>
+                            <label>Edificio:</label>
+
+                            <input
+                                type="text"
+                                value={data.building}
+                                onChange={e => setData('building', e.target.value)}
+                            />
+
+                            {errors.building && <div>{errors.building}</div>}
+                        </div>
+                    )}
+
+                    {data.type === 'Virtual' && (
+
+                        <div>
+                            <label>Plataforma:</label>
+
+                            <select
+                                value={data.platform}
+                                onChange={e => setData('platform', e.target.value)}
+                            >
+                                <option value="">Seleccione</option>
+
+                                <option value="Teams">Microsoft Teams</option>
+
+                                <option value="Google Meet">Google Meet</option>
+
+                                <option value="Zoom">Zoom</option>
+                            </select>
+
+                            {errors.platform && <div>{errors.platform}</div>}
+                        </div>
+                    )}
+                </div>
+
+                <div>
+                    <label>Estado:</label>
+                    <select
+                        value={data.status}
+                        onChange={e => setData('status', e.target.value)}
+                    >
+
+                        <option value="Disponible">
+                            Disponible
+                        </option>
+
+                        <option value="Mantenimiento">
+                            Mantenimiento
+                        </option>
+
+                        <option value="Inactiva">
+                            Inactiva
                         </option>
 
                     </select>
-                    {errors.tipo && <div>{errors.tipo}</div>}
+                    {errors.status && <div>{errors.status}</div>}
                 </div>
 
                 <button type="submit">Actualizar Aula</button>

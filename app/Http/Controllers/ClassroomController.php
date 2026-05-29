@@ -26,10 +26,36 @@ class ClassroomController extends Controller
     {
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'building'   => 'required|string|max:255',
-            'capacity'  => 'required|integer|min:1',
-            'type'       => 'required|string', 
+            'building'   => 'nullable|string|max:255',
+            'max_capacity'  => 'required|integer|min:15|max:100',
+            'type'       => 'required|in:Presencial,Virtual', 
+            'platform'   => 'nullable|string|max:255',
+            'status'     => 'required|in:Disponible,Mantenimiento,Inactiva',
         ]);
+
+        if ($request->type === 'Presencial') {
+
+            $validated['platform'] = null;
+
+            if (!$request->building) {
+
+                return back()->withErrors([
+                    'building' => 'El edificio es obligatorio.'
+                ]);
+            }
+        }
+
+        if ($request->type === 'Virtual') {
+
+            $validated['building'] = null;
+
+            if (!$request->platform) {
+
+                return back()->withErrors([
+                    'platform' => 'La plataforma es obligatoria.'
+                ]);
+            }
+        }
 
         Classroom::create($validated);
 
@@ -47,9 +73,11 @@ class ClassroomController extends Controller
     {
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'building'   => 'required|string|max:255',
-            'capacity'  => 'required|integer|min:1',
-            'type'       => 'required|string',
+            'building'   => 'nullable|string|max:255',
+            'max_capacity'  => 'required|integer|min:15|max:100',
+            'type'       => 'required|in:Presencial,Virtual',
+            'platform'   => 'nullable|string|max:255',
+            'status'     => 'required|in:Disponible,Mantenimiento,Inactiva',
         ]);
 
         $classroom->update($validated);

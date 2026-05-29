@@ -1,5 +1,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 import Navbar from "@/Components/Navbar";
+import { Link } from '@inertiajs/react';
 
 export default function Dashboard() {
 
@@ -43,11 +44,12 @@ export default function Dashboard() {
 
                         </h3>
 
-                        <button className="bg-[#1F3A5F] text-white px-4 py-2 rounded-lg hover:bg-[#244b88] transition">
-
+                        <Link
+                            href="/students"
+                            className="bg-[#1F3A5F] text-white px-4 py-2 rounded-lg hover:bg-[#244b88] transition inline-block"
+                        >
                             Importar
-
-                        </button>
+                        </Link>
 
                     </div>
 

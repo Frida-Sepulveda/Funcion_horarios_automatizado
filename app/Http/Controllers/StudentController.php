@@ -11,8 +11,8 @@ class StudentController extends Controller
     public function index()
     {
         // Traemos solo los elegibles y cargamos su carrera vinculada
-        $students = Student::with('career')
-            ->where('estado', 'Elegible para Inscripción')
+        $students = Student::with(['career', 'level'])
+            ->where('status', 'Elegible')
             ->get();
 
         return Inertia::render('Students/Index', [

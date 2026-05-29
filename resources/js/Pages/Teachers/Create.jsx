@@ -8,9 +8,17 @@ export default function Create() {
         last_name: '',
         email: '',
         phone: '',
-        modalidad: 'Presencial',
+        category: 'A', 
+        mcer_level: 'A1', 
+        rfc: '', 
+        curp: '', 
+        bank_clabe: '', 
+        ttc_hours: 0, 
+        academic_degree: '', 
+        is_native: false,
+        modality: 'Presencial',
         max_hours: 20,
-        status: 'activo'
+        status: 'Activo'
     });
 
     function submit(e) {
@@ -62,8 +70,43 @@ export default function Create() {
                 />
 
                 <select
-                    value={data.modalidad}
-                    onChange={e => setData('modalidad', e.target.value)}
+                    value={data.category}
+                    onChange={e => setData('category', e.target.value)}
+                    className="border p-2 w-full"
+                >
+                    <option value="A">Categoría A</option>
+                    <option value="B">Categoría B</option>
+                    <option value="C">Categoría C</option>
+                </select>
+
+                <select
+                    value={data.mcer_level}
+                    onChange={e => setData('mcer_level', e.target.value)}
+                    className="border p-2 w-full"
+                >
+                    <option value="A1">A1</option>
+                    <option value="A2">A2</option>
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="C1">C1</option>
+                    <option value="C2">C2</option>
+                </select>
+
+                <label className="flex items-center gap-2">
+
+                    <input
+                        type="checkbox"
+                        checked={data.is_native}
+                        onChange={e => setData('is_native', e.target.checked)}
+                    />
+
+                    Docente nativo
+
+                </label>
+
+                <select
+                    value={data.modality}
+                    onChange={e => setData('modality', e.target.value)}
                     className="border p-2 w-full"
                 >
 
@@ -95,11 +138,11 @@ export default function Create() {
                     className="border p-2 w-full"
                 >
 
-                    <option value="activo">
+                    <option value="Activo">
                         Activo
                     </option>
 
-                    <option value="inactivo">
+                    <option value="Inactivo">
                         Inactivo
                     </option>
 

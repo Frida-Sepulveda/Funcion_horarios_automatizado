@@ -11,8 +11,9 @@ class Classroom extends Model
     protected $fillable = [
         'name',
         'building',
-        'capacity',
+        'max_capacity',
         'type',
+        'platform',
         'status'
     ];
 

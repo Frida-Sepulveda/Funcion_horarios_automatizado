@@ -8,7 +8,15 @@ export default function Edit({ teacher }) {
         last_name: teacher.last_name,
         email: teacher.email,
         phone: teacher.phone,
-        modalidad: teacher.modalidad,
+        category: teacher.category, 
+        mcer_level: teacher.mcer_level, 
+        rfc: teacher.rfc, 
+        curp: teacher.curp, 
+        bank_clabe: teacher.bank_clabe, 
+        ttc_hours: teacher.ttc_hours, 
+        academic_degree: teacher.academic_degree, 
+        is_native: teacher.is_native,
+        modality: teacher.modality,
         max_hours: teacher.max_hours,
         status: teacher.status
     });
@@ -63,8 +71,43 @@ export default function Edit({ teacher }) {
                 />
 
                 <select
-                    value={data.modalidad}
-                    onChange={e => setData('modalidad', e.target.value)}
+                    value={data.category}
+                    onChange={e => setData('category', e.target.value)}
+                    className="border p-2 w-full"
+                >
+                    <option value="A">Categoría A</option>
+                    <option value="B">Categoría B</option>
+                    <option value="C">Categoría C</option>
+                </select>
+
+                <select
+                    value={data.mcer_level}
+                    onChange={e => setData('mcer_level', e.target.value)}
+                    className="border p-2 w-full"
+                >
+                    <option value="A1">A1</option>
+                    <option value="A2">A2</option>
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="C1">C1</option>
+                    <option value="C2">C2</option>
+                </select>
+
+                <label className="flex items-center gap-2">
+
+                    <input
+                        type="checkbox"
+                        checked={data.is_native}
+                        onChange={e => setData('is_native', e.target.checked)}
+                    />
+
+                    Docente nativo
+
+                </label>
+
+                <select
+                    value={data.modality}
+                    onChange={e => setData('modality', e.target.value)}
                     className="border p-2 w-full"
                 >
 
@@ -96,11 +139,11 @@ export default function Edit({ teacher }) {
                     className="border p-2 w-full"
                 >
 
-                    <option value="activo">
+                    <option value="Activo">
                         Activo
                     </option>
 
-                    <option value="inactivo">
+                    <option value="Inactivo">
                         Inactivo
                     </option>
 

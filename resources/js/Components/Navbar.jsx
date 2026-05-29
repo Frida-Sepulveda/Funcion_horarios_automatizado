@@ -24,15 +24,19 @@ export default function Navbar() {
 
             <nav className="hidden md:flex gap-6 text-sm font-medium">
 
-                <a href="#">
+                <a href="#"> 
                     Inicio
                 </a>
 
-                <a href="#">
+                <a href="/teachers"> 
                     Docentes
                 </a>
 
-                <a href="#">
+                <a href="/classrooms"> 
+                    Aulas
+                </a>
+
+                <a href="/settings"> 
                     Configuración
                 </a>
 
