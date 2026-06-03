@@ -1,4 +1,6 @@
 import { useForm } from '@inertiajs/react';
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
 
 export default function Create() {
 
@@ -28,8 +30,12 @@ export default function Create() {
     }
 
     return (
-
+        <AppLayout>
         <div className="p-6">
+            
+                <h1 className="text-2xl font-bold mb-4">
+                    Docentes
+                </h1>
 
             <h1 className="text-2xl font-bold mb-4">
                 Crear docente
@@ -148,15 +154,13 @@ export default function Create() {
 
                 </select>
 
-                <button
-                    type="submit"
-                    className="bg-green-500 text-white px-4 py-2 rounded"
-                >
+                <Button type="submit">
                     Guardar
-                </button>
+                </Button>
 
             </form>
 
         </div>
+        </AppLayout>
     );
 }

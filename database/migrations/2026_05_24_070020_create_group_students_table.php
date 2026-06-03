@@ -17,11 +17,11 @@ return new class extends Migration
 
             $table->foreignId('group_id')
                 ->constrained()
-                ->cascadeonDelete();
+                ->cascadeOnDelete();
 
             $table->foreignId('student_id')
                 ->constrained()
-                ->cascadeonDelete();
+                ->cascadeOnDelete();
 
             $table->unique([
                 'group_id',

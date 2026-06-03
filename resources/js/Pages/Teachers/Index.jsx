@@ -1,4 +1,7 @@
 import { Link, router } from '@inertiajs/react';
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
+import Table from "@/Components/UI/Table";
 
 export default function Index({ teachers }) {
     function deleteTeacher(id) {
@@ -10,93 +13,113 @@ export default function Index({ teachers }) {
     }
 
     return (
-        <div className="p-6">
+        <AppLayout>
+        <div className="contenedor">
+            <div className="titulo-pagina">
+                <h2>
+                    Docentes
+                </h2>
+                <p>
+                    Gestión de docentes registrados
+                </p>
+            </div>
 
-            <h1 className="text-2xl font-bold mb-4">
-                Docentes
-            </h1>
+                <div className="grid-paneles">
 
-            <Link
-                href="/teachers/create"
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-                Nuevo docente
-            </Link>
+                    <div className="card">
 
-            <table className="w-full mt-6 border shadow rounded-lg overflow-hidden">
+                        <Link href="/teachers/create">
 
-                <thead>
-                    <tr className="bg-gray-200">
-                        <th className="p-2">Nombre</th>
-                        <th className="p-2">Email</th>
-                        <th className="p-2">Categoría</th>
-                        <th className="p-2">MCER</th>
-                        <th className="p-2">Modalidad</th>
-                        <th className="p-2">Estado</th>
-                        <th className="p-2">Acciones</th>
-                    </tr>
-                </thead>
+                            <Button>
+                                Nuevo Docente
+                            </Button>
 
-                <tbody>
+                        </Link>
 
-                    {teachers.map((teacher) => (
+                    </div>
 
-                        <tr key={teacher.id} className="hover:bg-gray-50">
+                </div>
 
-                            <td className="border p-2">
-                                {teacher.first_name} {teacher.last_name}
-                            </td>
+            <div className="tabla-contenedor">
+            <Table headers={[
+                "Nombre",
+                "Email",
+                "Categoría",
+                "MCER",
+                "Modalidad",
+                "Estado",
+                "Acciones"
+            ]}>
 
-                            <td className="border p-2">
-                                {teacher.email}
-                            </td>
+                {teachers.length > 0 ? (
 
-                            <td className="border p-2">
+                teachers.map((teacher) => (
+
+                    <tr key={teacher.id} className="hover:bg-gray-50">
+
+                        <td className="border p-2">
+                            {teacher.first_name} {teacher.last_name}
+                        </td>
+
+                        <td className="border p-2">
+                            {teacher.email}
+                        </td>
+                        <td className="border p-2">
                             {teacher.category}
-                            </td>
+                        </td>
+                        <td className="border p-2">
+                            {teacher.mcer_level}
+                        </td>
+                        <td className="border p-2">
+                            {teacher.modality}
+                        </td>
+                        <td className="border p-2">
+                            {teacher.status === 'Activo' ? (
+                                <span className="text-green-500">Activo</span>
+                            ) : (
+                                <span className="text-red-500">Inactivo</span>
+                            )}
+                        </td>
+                        <td className="border p-2">
 
-                            <td className="border p-2">
-                                {teacher.mcer_level}
-                            </td>
+                            <Link
+                                href={`/teachers/${teacher.id}/edit`}
+                                className="text-blue-500 mr-4"
+                            >
+                                Editar
+                            </Link>
 
-                            <td className="border p-2">
-                                {teacher.modality}
-                            </td>
+                            <button
+                                onClick={() => deleteTeacher(teacher.id)}
+                                className="
+                                    text-red-500
+                                    hover:underline
+                                "
+                            >
+                                Eliminar
+                            </button>
 
-                            <td className="border p-2">
-                                {teacher.status === 'Activo' ? (
-                                    <span className="text-green-500">Activo</span>
-                                ) : (
-                                    <span className="text-red-500">Inactivo</span>
-                                )}
-                            </td>
+                        </td>
 
-                            <td className="border p-2">
+                    </tr>
+                ))
+            ) : (
 
-                                <Link
-                                    href={`/teachers/${teacher.id}/edit`}
-                                    className="text-blue-500 mr-4"
-                                >
-                                    Editar
-                                </Link>
+                    <tr>
+                        <td
+                            colSpan="8"
+                            className="text-center py-4"
+                        >
+                            No hay docentes registrados.
+                        </td>
+                    </tr>
 
-                                <button
-                                    onClick={() => deleteTeacher(teacher.id)}
-                                    className="text-red-500"
-                                >
-                                    Eliminar
-                                </button>
+                )}
 
-                            </td>
-
-                        </tr>
-
-                    ))}
-
-                </tbody>
-
-            </table>
+            </Table>
+            </div>
 
         </div>
+        </AppLayout>
     );
 }

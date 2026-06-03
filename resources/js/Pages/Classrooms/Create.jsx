@@ -1,7 +1,10 @@
 import React from 'react';
 import { useForm, Link } from '@inertiajs/react';
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
 
 export default function Create() {
+
     const { data, setData, post, errors } = useForm({
         name: '',
         building: '',
@@ -17,7 +20,13 @@ export default function Create() {
     }
 
     return (
+        <AppLayout>
         <div>
+                <h1 className="text-2xl font-bold mb-4">
+                    Aulas
+                </h1>
+    
+            
             <h1>Crear Aula</h1>
             
             <form onSubmit={submit}>
@@ -120,9 +129,14 @@ export default function Create() {
                     {errors.status && <div>{errors.status}</div>}
                 </div>
 
-                <button type="submit">Guardar Aula</button>
-                <Link href="/classrooms">Cancelar</Link>
+                <Button type="submit">
+                    Guardar Aula
+                </Button>
+                <Link href="/classrooms" className="btn">
+                    Cancelar
+                </Link>
             </form>
         </div>
+        </AppLayout>
     );
 }

@@ -29,17 +29,12 @@ export default function Navbar() {
                 </a>
 
                 <a href="/teachers"> 
-                    Docentes
+                    Usuarios
                 </a>
 
                 <a href="/classrooms"> 
                     Aulas
                 </a>
-
-                <a href="/settings"> 
-                    Configuración
-                </a>
-
             </nav>
 
             {/* USER */}

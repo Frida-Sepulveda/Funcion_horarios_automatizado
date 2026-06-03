@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link, router } from '@inertiajs/react';
 
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
+import Table from "@/Components/UI/Table";
+
 export default function Index({ classrooms = [] }) {
 
     function deleteClassroom(id) {
+
         if (!confirm('¿Eliminar esta aula?')) return;
 
         router.delete(`/classrooms/${id}`, {
@@ -12,73 +17,148 @@ export default function Index({ classrooms = [] }) {
     }
 
     return (
-        <>
-            {/* Contenedor principal con tus estilos CSS */}
+
+        <AppLayout>
+
             <div className="contenedor">
-                <div className="card">
-                        <h3>Gestión de Aulas</h3>
-                        {/* Botón adaptado a tu estilo original 'btn' para abrir formulario */}
-                        <Link href="/classrooms/create" className="btn" style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}>
-                            Nueva Aula
+
+                {/* TITULO */}
+
+                <div className="titulo-pagina">
+
+                    <h2>
+                        Aulas
+                    </h2>
+
+                    <p>
+                        Gestión de aulas registradas
+                    </p>
+
+                </div>
+
+                {/* BOTON */}
+
+                <div className="grid-paneles">
+
+                    <div className="card">
+
+                        <Link href="/classrooms/create">
+
+                            <Button>
+                                Nueva Aula
+                            </Button>
+
                         </Link>
+
                     </div>
 
-                {/* Tabla adaptada con tus clases e IDs originales de estilos.css */}
+                </div>
+
+                {/* TABLA */}
+
                 <div className="tabla-contenedor">
-                    <table id="tablaDocentes">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Edificio</th>
-                                <th>Capacidad</th>
-                                <th>Tipo de Aula</th>
-                                <th>Plataforma</th>
-                                <th>Status</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {classrooms.length > 0 ? (
-                                classrooms.map((classroom) => (
-                                    <tr key={classroom.id}>
-                                        <td>{classroom.name}</td>
-                                        <td>
-                                            {classroom.type === 'Presencial'
-                                                ? classroom.building
-                                                : '—'}
-                                        </td>
-                                        <td>{classroom.max_capacity}</td>
-                                        <td>{classroom.type}</td>
-                                        <td>
-                                            {classroom.type === 'Virtual'
-                                                ? classroom.platform
-                                                : '—'}
-                                        </td>
-                                        <td>{classroom.status}</td>
-                                        <td>    
-                                            <Link href={`/classrooms/${classroom.id}/edit`} style={{ marginRight: '10px', color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>
-                                                Editar
-                                            </Link>
-                                            
-                                            <button 
-                                                onClick={() => deleteClassroom(classroom.id)} 
-                                                style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500', padding: 0 }}
-                                            >
-                                                Eliminar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="5" style={{ textAlign: 'center' }}>No hay aulas registradas actualmente.</td>
+
+                    <Table
+                        headers={[
+                            "Nombre",
+                            "Edificio",
+                            "Capacidad",
+                            "Tipo",
+                            "Plataforma",
+                            "Estado",
+                            "Acciones"
+                        ]}
+                    >
+
+                        {classrooms.length > 0 ? (
+
+                            classrooms.map((classroom) => (
+
+                                <tr key={classroom.id}>
+
+                                    <td className="px-4 py-3">
+                                        {classroom.name}
+                                    </td>
+
+                                    <td className="px-4 py-3">
+
+                                        {classroom.type === 'Presencial'
+                                            ? classroom.building
+                                            : '—'}
+
+                                    </td>
+
+                                    <td className="px-4 py-3">
+                                        {classroom.max_capacity}
+                                    </td>
+
+                                    <td className="px-4 py-3">
+                                        {classroom.type}
+                                    </td>
+
+                                    <td className="px-4 py-3">
+
+                                        {classroom.type === 'Virtual'
+                                            ? classroom.platform
+                                            : '—'}
+
+                                    </td>
+
+                                    <td className="px-4 py-3">
+                                        {classroom.status}
+                                    </td>
+
+                                    <td className="px-4 py-3 flex gap-3">
+
+                                        <Link
+                                            href={`/classrooms/${classroom.id}/edit`}
+                                            className="
+                                                text-blue-600
+                                                hover:underline
+                                                font-medium
+                                            "
+                                        >
+                                            Editar
+                                        </Link>
+
+                                        <button
+                                            onClick={() => deleteClassroom(classroom.id)}
+                                            className="
+                                                text-red-600
+                                                hover:underline
+                                                font-medium
+                                            "
+                                        >
+                                            Eliminar
+                                        </button>
+
+                                    </td>
+
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+
+                            ))
+
+                        ) : (
+
+                            <tr>
+
+                                <td
+                                    colSpan="7"
+                                    className="text-center py-4"
+                                >
+                                    No hay aulas registradas actualmente.
+                                </td>
+
+                            </tr>
+
+                        )}
+
+                    </Table>
+
                 </div>
 
             </div>
-        </>
+
+        </AppLayout>
     );
 }

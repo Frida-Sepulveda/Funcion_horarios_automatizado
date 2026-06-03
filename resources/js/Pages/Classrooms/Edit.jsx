@@ -1,7 +1,10 @@
 import React from 'react';
 import { useForm, Link } from '@inertiajs/react';
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
 
 export default function Edit({ classroom }) {
+
     const { data, setData, put, errors } = useForm({
         name: classroom.name || '',
         building: classroom.building || '',
@@ -17,7 +20,12 @@ export default function Edit({ classroom }) {
     }
 
     return (
+        <AppLayout>
         <div>
+                <h1 className="text-2xl font-bold mb-4">
+                    Aulas
+                </h1>
+            
             <h1>Editar Aula</h1>
             
             <form onSubmit={submit}>
@@ -119,9 +127,14 @@ export default function Edit({ classroom }) {
                     {errors.status && <div>{errors.status}</div>}
                 </div>
 
-                <button type="submit">Actualizar Aula</button>
-                <Link href="/classrooms">Cancelar</Link>
+                <Button type="submit">
+                    Actualizar Aula
+                </Button>
+                <Link href="/classrooms" className="btn">
+                    Cancelar
+                </Link>
             </form>
         </div>
+        </AppLayout>
     );
 }

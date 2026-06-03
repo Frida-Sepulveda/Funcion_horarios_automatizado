@@ -1,4 +1,6 @@
 import { useForm } from '@inertiajs/react';
+import AppLayout from '@/Components/Layout/AppLayout';
+import Button from "@/Components/UI/Button";
 
 export default function Edit({ teacher }) {
 
@@ -29,8 +31,15 @@ export default function Edit({ teacher }) {
     }
 
     return (
-
+        <AppLayout>
         <div className="p-6">
+            
+    
+                <h1 className="text-2xl font-bold mb-4">
+                    Docentes
+                </h1>
+    
+            
 
             <h1 className="text-2xl font-bold mb-4">
                 Editar docente
@@ -149,15 +158,13 @@ export default function Edit({ teacher }) {
 
                 </select>
 
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
+                <Button type="submit">
                     Actualizar
-                </button>
+                </Button>
 
             </form>
 
         </div>
+        </AppLayout>
     );
 }

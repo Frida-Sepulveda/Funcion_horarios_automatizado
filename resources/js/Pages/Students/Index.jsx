@@ -1,4 +1,7 @@
 import React from 'react';
+import AppLayout from "@/Components/Layout/AppLayout";
+import Button from "@/Components/UI/Button";
+import Table from "@/Components/UI/Table";
 
 export default function Index({ students = [] }) {
 
@@ -70,10 +73,10 @@ export default function Index({ students = [] }) {
     };
 
     return (
-
+        <AppLayout>
         <div className="contenedor">
 
-            <div className="titulo-pagina">
+            <div className="titulo-pagina font-bold mb-4">
 
                 <h2>
                     Alumnos Elegibles
@@ -93,12 +96,9 @@ export default function Index({ students = [] }) {
                         Exportación
                     </h3>
 
-                    <button
-                        className="btn"
-                        onClick={exportarCSV}
-                    >
+                    <Button onClick={exportarCSV}>
                         Exportar CSV
-                    </button>
+                    </Button>
 
                 </div>
 
@@ -106,104 +106,93 @@ export default function Index({ students = [] }) {
 
             <div className="tabla-contenedor">
 
-                <table id="tablaDocentes">
+                <Table headers={[
+                    "No. Control",
+                    "Nombre",
+                    "Correo",
+                    "Carrera",
+                    "Plan",
+                    "Semestre",
+                    "Nivel",
+                    "Estado"
+                ]}>
 
-                    <thead>
+                    {students.length > 0 ? (
 
-                        <tr>
+                        students.map((student) => (
 
-                            <th>No. Control</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Carrera</th>
-                            <th>Plan</th>
-                            <th>Semestre</th>
-                            <th>Nivel</th>
-                            <th>Estado</th>
+                            <tr key={student.id}>
 
-                        </tr>
+                                <td className="px-4 py-3">
+                                    {student.control_number || 'N/A'}
+                                </td>
 
-                    </thead>
+                                <td className="px-4 py-3">
+                                    {student.first_name} {student.last_name}
+                                </td>
 
-                    <tbody>
+                                <td className="px-4 py-3">
+                                    {student.email}
+                                </td>
 
-                        {students.length > 0 ? (
+                                <td className="px-4 py-3">
+                                    {student.career?.name || 'N/A'}
+                                </td>
 
-                            students.map((student) => (
+                                <td className="px-4 py-3">
+                                    {student.career?.study_plan || 'N/A'}
+                                </td>
 
-                                <tr key={student.id}>
+                                <td className="px-4 py-3">
+                                    {student.semester}
+                                </td>
 
-                                    <td>
-                                        {student.control_number || 'N/A'}
-                                    </td>
+                                <td className="px-4 py-3">
+                                    {student.level?.name || 'N/A'}
+                                </td>
 
-                                    <td>
-                                        {student.first_name} {student.last_name}
-                                    </td>
+                                <td className="px-4 py-3">
 
-                                    <td>
-                                        {student.email}
-                                    </td>
+                                    {student.status === 'Elegible' ? (
 
-                                    <td>
-                                        {student.career?.name || 'N/A'}
-                                    </td>
+                                        <span className="text-green-600 font-semibold">
+                                            Elegible
+                                        </span>
 
-                                    <td>
-                                        {student.career?.study_plan || 'N/A'}
-                                    </td>
+                                    ) : (
 
-                                    <td>
-                                        {student.semester}
-                                    </td>
+                                        <span className="text-red-600 font-semibold">
+                                            No elegible
+                                        </span>
 
-                                    <td>
-                                        {student.level?.name || 'N/A'}
-                                    </td>
+                                    )}
 
-                                    <td>
-
-                                        {student.status === 'Elegible' ? (
-
-                                            <span className="text-green-600 font-semibold">
-                                                Elegible
-                                            </span>
-
-                                        ) : (
-
-                                            <span className="text-red-600 font-semibold">
-                                                No elegible
-                                            </span>
-
-                                        )}
-
-                                    </td>
-
-                                </tr>
-
-                            ))
-
-                        ) : (
-
-                            <tr>
-
-                                <td
-                                    colSpan="8"
-                                    style={{ textAlign: 'center' }}
-                                >
-                                    No hay alumnos elegibles.
                                 </td>
 
                             </tr>
 
-                        )}
+                        ))
 
-                    </tbody>
+                    ) : (
 
-                </table>
+                        <tr>
+
+                            <td
+                                colSpan="8"
+                                className="text-center py-4"
+                            >
+                                No hay alumnos elegibles.
+                            </td>
+
+                        </tr>
+
+                    )}
+
+                </Table>
 
             </div>
 
         </div>
+        </AppLayout>
     );
-}
+}        

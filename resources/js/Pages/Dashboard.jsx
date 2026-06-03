@@ -1,14 +1,14 @@
-import AppLayout from "@/Layouts/AppLayout";
-import Navbar from "@/Components/Navbar";
+import AppLayout from "@/Components/Layout/AppLayout";
+//import Navbar from "@/Components/Layout/Navbar";
 import { Link } from '@inertiajs/react';
+import Button from "@/Components/UI/Button";
+import { router } from '@inertiajs/react';
 
 export default function Dashboard() {
 
     return (
 
         <AppLayout>
-
-            <Navbar />
 
             <div className="max-w-5xl mx-auto p-6">
 
@@ -63,11 +63,11 @@ export default function Dashboard() {
 
                         </h3>
 
-                        <button className="bg-[#1F3A5F] text-white px-4 py-2 rounded-lg hover:bg-[#244b88] transition">
+                        <Button onClick={() => router.post('/groups/generate')}>
 
-                            Generar horarios
+                            Generar grupos
 
-                        </button>
+                        </Button>
 
                     </div>
 
