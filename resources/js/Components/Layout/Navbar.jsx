@@ -1,3 +1,5 @@
+import { Link } from '@inertiajs/react';
+
 export default function Navbar() {
 
     return (
@@ -20,21 +22,32 @@ export default function Navbar() {
 
             </div>
 
-            {/* MENU */}
+            {/* MENU CORREGIDO CON LINK DE INERTIA */}
 
             <nav className="hidden md:flex gap-6 text-sm font-medium">
 
-                <a href="#"> 
+                {/* Este te mandará de regreso al inicio de la foto */}
+                <Link 
+                    href="/dashboard" 
+                    className="hover:text-gray-300 transition"
+                > 
                     Inicio
-                </a>
+                </Link>
 
-                <a href="/teachers"> 
+                <Link 
+                    href="/teachers" 
+                    className="hover:text-gray-300 transition"
+                > 
                     Usuarios
-                </a>
+                </Link>
 
-                <a href="/classrooms"> 
+                <Link 
+                    href="/classrooms" 
+                    className="hover:text-gray-300 transition"
+                > 
                     Aulas
-                </a>
+                </Link>
+
             </nav>
 
             {/* USER */}

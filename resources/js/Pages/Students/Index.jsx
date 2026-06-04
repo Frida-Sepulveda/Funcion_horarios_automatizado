@@ -6,7 +6,6 @@ import Table from "@/Components/UI/Table";
 export default function Index({ students = [] }) {
 
     const exportarCSV = () => {
-
         if (students.length === 0) {
             alert("No hay datos para exportar");
             return;
@@ -24,21 +23,13 @@ export default function Index({ students = [] }) {
         ];
 
         const filas = students.map(student => [
-
             student.control_number || 'N/A',
-
             `${student.first_name} ${student.last_name}`,
-
             student.email,
-
             student.career?.name || 'N/A',
-
             student.career?.study_plan || 'N/A',
-
             student.semester,
-
             student.level?.name || 'N/A',
-
             student.status
         ]);
 
@@ -55,144 +46,132 @@ export default function Index({ students = [] }) {
         );
 
         const url = URL.createObjectURL(blob);
-
         const link = document.createElement("a");
-
         link.setAttribute("href", url);
-
-        link.setAttribute(
-            "download",
-            "Alumnos_Elegibles.csv"
-        );
-
+        link.setAttribute("download", "Alumnos_Elegibles.csv");
         document.body.appendChild(link);
-
         link.click();
-
         document.body.removeChild(link);
     };
 
     return (
         <AppLayout>
-        <div className="contenedor">
+            <div className="contenedor p-6 max-w-7xl mx-auto space-y-6">
 
-            <div className="titulo-pagina font-bold mb-4">
+                {/* ENCABEZADO DE LA PÁGINA */}
+                <div className="titulo-pagina flex flex-col md:flex-row md:items-center md:justify-between border-b border-gray-100 pb-4">
+                    <div className="border-l-4 border-orange-500 pl-4">
+                        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+                            Alumnos Elegibles
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Gestión de alumnos disponibles para inscripción
+                        </p>
+                    </div>
 
-                <h2>
-                    Alumnos Elegibles
-                </h2>
+                    {/* Selector del tipo de tabla */}
+                    <div className="mt-4 md:mt-0 flex items-center gap-2 self-end md:self-auto bg-white p-2 rounded-lg border border-gray-200 shadow-sm text-sm">
+                        <span className="text-gray-500">Tabla a mostrar:</span>
+                        <select className="bg-transparent font-medium text-gray-700 outline-none cursor-pointer">
+                            <option>Alumnos</option>
+                        </select>
+                    </div>
+                </div>
 
-                <p>
-                    Gestión de alumnos disponibles para inscripción
-                </p>
+                {/* CONTROLES DE BÚSQUEDA Y EXPORTACIÓN */}
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    {/* Input de búsqueda */}
+                    <div className="relative flex-1 max-w-md">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </span>
+                        <input 
+                            type="text" 
+                            placeholder="Buscar en alumnos..." 
+                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-gray-600 placeholder-gray-400"
+                        />
+                    </div>
 
-            </div>
+                    {/* Botonera de acciones (Solo con el botón de exportar) */}
+                    <div className="flex items-center gap-2 self-end md:self-auto">
+                        <button
+                            type="button"
+                            onClick={exportarCSV}
+                            className="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
 
-            <div className="grid-paneles">
-
-                <div className="card">
-
-                    <h3>
-                        Exportación
-                    </h3>
-
-                    <Button onClick={exportarCSV}>
-                        Exportar CSV
-                    </Button>
-
+                {/* CONTENEDOR DE LA TABLA PRINCIPAL */}
+                <div className="tabla-contenedor bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <Table headers={[
+                        "No. Control",
+                        "Nombre",
+                        "Correo",
+                        "Carrera",
+                        "Plan",
+                        "Semestre",
+                        "Nivel",
+                        "Estado"
+                    ]}>
+                        {students.length > 0 ? (
+                            students.map((student) => (
+                                <tr key={student.id} className="border-b border-gray-200 hover:bg-slate-50/50 transition-colors">
+                                    <td className="px-4 py-3.5 text-sm font-medium text-slate-700">
+                                        {student.control_number || 'N/A'}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-700">
+                                        {student.first_name} {student.last_name}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-600">
+                                        {student.email}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-600">
+                                        {student.career?.name || 'N/A'}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-500 text-center">
+                                        {student.career?.study_plan || 'N/A'}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-600 text-center">
+                                        {student.semester}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm text-gray-600 text-center font-medium">
+                                        {student.level?.name || 'N/A'}
+                                    </td>
+                                    <td className="px-4 py-3.5 text-sm">
+                                        {student.status === 'Elegible' ? (
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                                Elegible
+                                            </span>
+                                        ) : (
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                                                No elegible
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td
+                                    colSpan="8"
+                                    className="text-center py-8 text-gray-400 text-sm"
+                                >
+                                    No hay alumnos elegibles registrados en el sistema.
+                                </td>
+                            </tr>
+                        )}
+                    </Table>
                 </div>
 
             </div>
-
-            <div className="tabla-contenedor">
-
-                <Table headers={[
-                    "No. Control",
-                    "Nombre",
-                    "Correo",
-                    "Carrera",
-                    "Plan",
-                    "Semestre",
-                    "Nivel",
-                    "Estado"
-                ]}>
-
-                    {students.length > 0 ? (
-
-                        students.map((student) => (
-
-                            <tr key={student.id}>
-
-                                <td className="px-4 py-3">
-                                    {student.control_number || 'N/A'}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.first_name} {student.last_name}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.email}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.career?.name || 'N/A'}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.career?.study_plan || 'N/A'}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.semester}
-                                </td>
-
-                                <td className="px-4 py-3">
-                                    {student.level?.name || 'N/A'}
-                                </td>
-
-                                <td className="px-4 py-3">
-
-                                    {student.status === 'Elegible' ? (
-
-                                        <span className="text-green-600 font-semibold">
-                                            Elegible
-                                        </span>
-
-                                    ) : (
-
-                                        <span className="text-red-600 font-semibold">
-                                            No elegible
-                                        </span>
-
-                                    )}
-
-                                </td>
-
-                            </tr>
-
-                        ))
-
-                    ) : (
-
-                        <tr>
-
-                            <td
-                                colSpan="8"
-                                className="text-center py-4"
-                            >
-                                No hay alumnos elegibles.
-                            </td>
-
-                        </tr>
-
-                    )}
-
-                </Table>
-
-            </div>
-
-        </div>
         </AppLayout>
     );
-}        
+}
