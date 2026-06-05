@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 import Button from "@/Components/UI/Button";
 import { router } from '@inertiajs/react';
 
-export default function Dashboard() {
+export default function Dashboard({ groups = []}) {
 
     return (
 
@@ -48,7 +48,7 @@ export default function Dashboard() {
                             href="/students"
                             className="bg-[#1F3A5F] text-white px-4 py-2 rounded-lg hover:bg-[#244b88] transition inline-block"
                         >
-                            Importar
+                            Importar 📤
                         </Link>
 
                     </div>
@@ -65,7 +65,7 @@ export default function Dashboard() {
 
                         <Button onClick={() => router.post('/groups/generate')}>
 
-                            Generar grupos
+                            Crear horarios 📅
 
                         </Button>
 
@@ -103,35 +103,87 @@ export default function Dashboard() {
                                     Docente
                                 </th>
 
+                                <th className="p-3">
+                                    Alumnos
+                                </th>
+
+                                <th className="p-3">
+                                    Estado
+                                </th>
+
                             </tr>
 
                         </thead>
 
                         <tbody>
 
-                            <tr>
+                            {groups.length > 0 ? (
 
-                                <td className="p-3 text-center">
-                                    —
-                                </td>
+                                groups.map((group) => (
 
-                                <td className="p-3 text-center">
-                                    —
-                                </td>
+                                    <tr
+                                        key={group.id}
+                                        className="border-b hover:bg-gray-50"
+                                    >
 
-                                <td className="p-3 text-center">
-                                    —
-                                </td>
+                                        <td className="p-3 text-center">
+                                            {group.group_key}
+                                        </td>
 
-                                <td className="p-3 text-center">
-                                    —
-                                </td>
+                                        <td className="p-3 text-center">
+                                            {group.level?.name}
+                                        </td>
 
-                                <td className="p-3 text-center">
-                                    —
-                                </td>
+                                        <td className="p-3 text-center">
+                                            {group.modality}
+                                        </td>
 
-                            </tr>
+                                        <td className="p-3 text-center">
+                                            {group.schedule_type}
+                                            {' - '}
+                                            {group.shift}
+                                        </td>
+
+                                        <td className="p-3 text-center">
+
+                                            {group.teacher
+                                                ? `${group.teacher.first_name} ${group.teacher.last_name}`
+                                                : 'Sin asignar'}
+
+                                        </td>
+
+                                        <td className="p-3 text-center">
+                                            {group.students?.length}
+                                        </td>
+
+                                        <td className="p-3 text-center">
+
+                                            <span className="text-yellow-600 font-semibold">
+
+                                                {group.status}
+
+                                            </span>
+
+                                        </td>
+
+                                    </tr>
+
+                                ))
+
+                            ) : (
+
+                                <tr>
+
+                                    <td
+                                        colSpan="7"
+                                        className="p-4 text-center"
+                                    >
+                                        No hay grupos generados.
+                                    </td>
+
+                                </tr>
+
+                            )}
 
                         </tbody>
 

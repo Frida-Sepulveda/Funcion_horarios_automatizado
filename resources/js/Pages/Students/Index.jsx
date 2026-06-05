@@ -2,6 +2,7 @@ import React from 'react';
 import AppLayout from "@/Components/Layout/AppLayout";
 import Button from "@/Components/UI/Button";
 import Table from "@/Components/UI/Table";
+import { router } from '@inertiajs/react';
 
 export default function Index({ students = [] }) {
 
@@ -94,7 +95,7 @@ export default function Index({ students = [] }) {
                         />
                     </div>
 
-                    {/* Botonera de acciones (Solo con el botón de exportar) */}
+                    {/* Botonera de acciones (Solo con el botón de exportar y crear grupos) */}
                     <div className="flex items-center gap-2 self-end md:self-auto">
                         <button
                             type="button"
@@ -106,6 +107,11 @@ export default function Index({ students = [] }) {
                             </svg>
                             Exportar
                         </button>
+                        <Button onClick={() => router.post('/groups/generate')}>
+
+                            Crear grupos 👥
+
+                        </Button>
                     </div>
                 </div>
 
