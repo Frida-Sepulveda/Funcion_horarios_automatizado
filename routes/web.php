@@ -8,6 +8,7 @@ use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\GroupGenerationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ScheduleGenerationController;
 
 Route::get( 
     '/dashboard', 
@@ -23,4 +24,9 @@ Route::resource('classrooms', ClassroomController::class);
 Route::post(
     '/groups/generate',
     [GroupGenerationController::class, 'generate']
+);
+
+Route::post(
+    '/schedules/generate',
+    [ScheduleGenerationController::class, 'generate']
 );

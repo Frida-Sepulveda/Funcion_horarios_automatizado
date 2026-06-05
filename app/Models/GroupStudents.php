@@ -13,7 +13,7 @@ class GroupStudents extends Model
         'student_id',
     ];
 
-    public function academicgroup()
+    public function groups()
     {
         return $this->belongsTo(AcademicGroup::class);
     }

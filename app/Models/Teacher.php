@@ -52,4 +52,12 @@ class Teacher extends Model
     {
         return $this->hasMany(Schedule::class);
     }
+
+    public function groups()
+    {
+        return $this->hasMany(
+            AcademicGroup::class,
+            'teacher_id'
+        );
+    }
 }

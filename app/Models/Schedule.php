@@ -18,7 +18,7 @@ class Schedule extends Model
 
     public function academicgroup()
     {
-        return $this->belongsTo(AcademicGroup::class);
+        return $this->belongsTo(AcademicGroup::class, 'group_id');
     }
 
     public function scheduleBlock()
