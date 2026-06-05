@@ -3,72 +3,87 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use App\Models\Group;
-use Illuminate\Http\Request;
+use App\Models\AcademicGroup;
 use Illuminate\Support\Facades\DB;
 
 class GroupGenerationController extends Controller
 {
     public function generate()
     {
-        DB::beginTransaction();
-
         try {
 
-            $students = Student::with(['career', 'level'])
-            ->where('status', 'Elegible')
-            ->get();
+            DB::transaction(function () {
 
-            /*$students = Student::where('status', 'Elegible')
-                ->with('level')
-                ->get(); */
-
-            $grouped = $students->groupBy(function ($student) {
-
-                return $student->level_id . '-' . $student->modality;
-
-            });
+                $students = Student::with(['career', 'level'])
+                    ->where('status', 'Elegible')
+                    ->get();
 
 
-            foreach ($grouped as $key => $groupStudents) {
+                $groupedStudents = $students->groupBy(function ($student) {
+
+                    return
+                        $student->level_id .
+                        '-' .
+                        $student->modality;
+                });
 
 
-                $chunks = $groupStudents->chunk(25);
-
-                foreach ($chunks as $index => $chunk) {
-
-                    $firstStudent = $chunk->first();
+                foreach ($groupedStudents as $groupStudents) {
 
 
-                    $group = Group::create([
+                    $chunks = $groupStudents->chunk(25);
 
-                        'level_id' => $firstStudent->level_id,
+                    foreach ($chunks as $index => $chunk) {
 
-                        'modality' => $firstStudent->modality,
+                        $firstStudent = $chunk->first();
 
-                        'schedule_type' => 'LM',
+                        /*
+                        GENERAR CLAVE DEL GRUPO
+                        */
 
-                        'shift' => 'Manana',
-
-                        'max_students' => 25,
-
-                        'status' => 'Planeado',
-
-                        'group_key' =>
+                        $groupKey =
                             $firstStudent->level->name .
                             '-' .
-                            ($index + 1),
-                    ]);
+                            str_pad($index + 1, 2, '0', STR_PAD_LEFT);
 
-                    foreach ($chunk as $student) {
 
-                        $group->students()->attach($student->id);
+                        $existingGroup = AcademicGroup::where('group_key', $groupKey)
+                        ->exists();
 
+                        if ($existingGroup) {
+                            continue;
+                        }
+
+                        $group = AcademicGroup::create([
+
+                            'level_id' => $firstStudent->level_id,
+
+                            'modality' => $firstStudent->modality,
+
+                            'schedule_type' =>
+                                $firstStudent->schedule_type
+                                ?? 'LM',
+
+                            'shift' =>
+                                $firstStudent->shift
+                                ?? 'Manana',
+
+                            'max_students' => 25,
+
+                            'status' => 'Planeado',
+
+                            'group_key' => $groupKey,
+                        ]);
+
+                        foreach ($chunk as $student) {
+                        /* Mas adelante se recomienda cambiar attach()
+                        por sync() para inserciones masivas, de momento 
+                        nosotras lo dejas así para el proyecto*/
+                            $group->students()->attach($student->id);
+                        }
                     }
                 }
-            }
-
-            DB::commit();
+            });
 
             return redirect()
                 ->back()
@@ -79,15 +94,12 @@ class GroupGenerationController extends Controller
 
         } catch (\Exception $e) {
 
-            DB::rollBack();
-
             return redirect()
                 ->back()
                 ->with(
                     'error',
-                    'Error al generar grupos.'
+                    'Error al generar grupos: ' . $e->getMessage()
                 );
         }
     }
 }
-

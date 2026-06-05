@@ -16,9 +16,9 @@ class Schedule extends Model
         'schedule_block_id',
     ];
 
-    public function group()
+    public function academicgroup()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(AcademicGroup::class);
     }
 
     public function scheduleBlock()

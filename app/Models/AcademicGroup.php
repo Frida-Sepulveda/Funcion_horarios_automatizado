@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AcademicGroup extends Model
 {
     use HasFactory;
+    protected $table = 'groups';
 
     protected $fillable = [
 
@@ -54,7 +55,7 @@ class AcademicGroup extends Model
     {
         return $this->belongsToMany(
             Student::class,
-            'group_student',
+            'group_students',
             'group_id',
             'student_id'
         );

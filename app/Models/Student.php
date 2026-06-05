@@ -41,9 +41,9 @@ class Student extends Model
         'shift'
     ];
 
-    public function groups()
+    public function academicgroups()
     {
-        return $this->belongsToMany(Group::class,
+        return $this->belongsToMany(AcademicGroup::class,
          'group_students', 'student_id', 'group_id');
     }
 
