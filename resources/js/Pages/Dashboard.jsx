@@ -50,7 +50,7 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                             href="/students"
                             className="bg-[#1F3A5F] text-white px-4 py-2 rounded-lg hover:bg-[#244b88] transition inline-block"
                         >
-                            Importar 📤
+                            Alumnos elegibles 
                         </Link>
                     </div>
 
@@ -76,6 +76,7 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                                 <th className="p-3">Nivel</th>
                                 <th className="p-3">Modalidad</th>
                                 <th className="p-3">Horario</th>
+                                <th className="p-3">Aula</th>
                                 <th className="p-3">Docente</th>
                                 <th className="p-3">Alumnos</th>
                                 <th className="p-3">Estado</th>
@@ -92,9 +93,39 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                                         <td className="p-3 text-center">{group.level?.name}</td>
                                         <td className="p-3 text-center">{group.modality}</td>
                                         <td className="p-3 text-center">
-                                            {group.schedule_type}
-                                            {' - '}
-                                            {group.shift}
+
+                                            {group.schedules?.length > 0 ? (
+
+                                                group.schedules.map((schedule, index) => (
+
+                                                    <div key={index}>
+
+                                                        {schedule.schedule_block?.day}
+
+                                                        {' '}
+
+                                                        {schedule.schedule_block?.start_time?.slice(0, 5)}
+
+                                                        {' - '}
+
+                                                        {schedule.schedule_block?.end_time?.slice(0, 5)}
+
+                                                    </div>
+
+                                                ))
+
+                                            ) : (
+
+                                                'Sin horario disponible'
+
+                                            )}
+
+                                        </td>
+                                        <td className="p-3 text-center">
+                                            {group.classroom
+                                                ? group.classroom.name
+                                                : 'Sin aula'}
+
                                         </td>
                                         <td className="p-3 text-center">
                                             {group.teacher
@@ -103,7 +134,12 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                                         </td>
                                         <td className="p-3 text-center">{group.students?.length}</td>
                                         <td className="p-3 text-center">
-                                            <span className="text-yellow-600 font-semibold">
+                                            <span
+                                                className={`px-3 py-1 rounded-full text-sm font-semibold ${group.status === 'Abierto'
+                                                        ? 'bg-green-100 text-green-700'
+                                                        : 'bg-yellow-100 text-yellow-700'
+                                                    }`}
+                                            >
                                                 {group.status}
                                             </span>
                                         </td>

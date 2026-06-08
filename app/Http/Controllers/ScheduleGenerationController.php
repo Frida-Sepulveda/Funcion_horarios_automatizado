@@ -8,6 +8,9 @@ use App\Models\ScheduleBlock;
 use Illuminate\Support\Facades\DB;
 use App\Models\Teacher;
 use App\Models\Classroom;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SchedulesExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ScheduleGenerationController extends Controller
 {
@@ -84,11 +87,19 @@ class ScheduleGenerationController extends Controller
                 /*Buscar docente disponible*/
                 $group->load('schedules');
 
-                $teacher = Teacher::where('status','Activo')
-                    ->where(
-                        'modality',
-                        $group->modality
-                    )
+                $teacher = Teacher::where('status', 'Activo')
+
+                    ->where('modality', $group->modality)
+
+                    ->whereHas('availabilities', function ($query) use ($group) {
+
+                        $query->whereIn(
+                            'schedule_block_id',
+                            $group->schedules->pluck('schedule_block_id')
+                        )
+                            ->where('is_available', true);
+                    })
+
                     ->whereDoesntHave('groups.schedules', function ($query) use ($group) {
 
                         $query->whereIn(
@@ -96,6 +107,9 @@ class ScheduleGenerationController extends Controller
                             $group->schedules->pluck('schedule_block_id')
                         );
                     })
+
+                    ->inRandomOrder()
+
                     ->first();
 
                 /*Asignar docente*/
@@ -156,5 +170,73 @@ class ScheduleGenerationController extends Controller
 
             dd($e->getMessage());
         }
+    }
+
+    public function confirm()
+    {
+        $groups = AcademicGroup::with([
+            'teacher',
+            'classroom',
+            'schedules'
+        ])->get();
+
+        foreach ($groups as $group) {
+
+            $hasTeacher = !is_null($group->teacher_id);
+
+            $hasClassroom = !is_null($group->classroom_id);
+
+            $hasSchedules = $group->schedules->count() > 0;
+
+            if (
+                $hasTeacher &&
+                $hasClassroom &&
+                $hasSchedules
+            ) {
+
+                $group->status = 'Abierto';
+            } else {
+
+                $group->status = 'Planeado';
+            }
+
+            $group->save();
+        }
+
+        return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Horarios confirmados correctamente.'
+            );
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new SchedulesExport,
+            'horarios_finales.xlsx'
+        );
+    }
+
+    public function exportPdf()
+    {
+        $groups = AcademicGroup::with([
+
+            'level',
+            'teacher',
+            'classroom',
+            'schedules.scheduleBlock'
+
+        ])->get();
+
+        $pdf = Pdf::loadView(
+            'pdf.schedules',
+            compact('groups')
+        );
+
+        return $pdf->download(
+            'horarios_finales.pdf'
+        );
     }
 }

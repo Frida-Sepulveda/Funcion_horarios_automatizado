@@ -29,22 +29,20 @@ class StudentFactory extends Factory
 
             'semester' => fake()->numberBetween(1, 13),
 
-            'level_id' => Level::query()->inRandomOrder(null)->value('id'),
+            // 'level_id' => Level::query()->inRandomOrder(null)->value('id'),
+            'level_id' => fake()->randomElement([
+                1,1,1,
+                2,2,2,
+                3,3,
+                4
+            ]),
 
             'student_type' => fake()->randomElement([
                 'Vigente',
                 'Egresado'
             ]),
 
-            'status' => fake()->randomElement([
-                'En espera',
-                'Vigente',
-                'Inhabilitado',
-                'En Revision',
-                'Acreditado',
-                'Elegible',
-                'Liberado'
-            ]),
+            'status' => 'Elegible',
 
             'accreditation_origin' => fake()->optional()->word(),
 
@@ -52,6 +50,7 @@ class StudentFactory extends Factory
 
             'modality' => fake()->randomElement([
                 'Presencial',
+                'Virtual',
                 'Virtual'
             ]),
 
@@ -63,6 +62,10 @@ class StudentFactory extends Factory
 
             'shift' => fake()->randomElement([
                 'Manana',
+                'Manana',
+                'Manana',
+                'Manana',
+                'Tarde',
                 'Tarde'
             ]),
         ];

@@ -90,8 +90,8 @@ export default function Index({ students = [] }) {
                         </span>
                         <input 
                             type="text" 
-                            placeholder="Buscar en alumnos..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-gray-600 placeholder-gray-400"
+                            placeholder="Buscar alumno por No. Control" 
+                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0f2c59] text-gray-600 placeholder-gray-400"
                         />
                     </div>
 
@@ -120,12 +120,11 @@ export default function Index({ students = [] }) {
                     <Table headers={[
                         "No. Control",
                         "Nombre",
-                        "Correo",
                         "Carrera",
-                        "Plan",
                         "Semestre",
                         "Nivel",
-                        "Estado"
+                        "Estado",
+                        "Grupo"
                     ]}>
                         {students.length > 0 ? (
                             students.map((student) => (
@@ -136,15 +135,12 @@ export default function Index({ students = [] }) {
                                     <td className="px-4 py-3.5 text-sm text-gray-700">
                                         {student.first_name} {student.last_name}
                                     </td>
-                                    <td className="px-4 py-3.5 text-sm text-gray-600">
-                                        {student.email}
-                                    </td>
-                                    <td className="px-4 py-3.5 text-sm text-gray-600">
+                                    <td className="px-4 py-3.5 text-sm text-gray-600"> 
                                         {student.career?.name || 'N/A'}
                                     </td>
-                                    <td className="px-4 py-3.5 text-sm text-gray-500 text-center">
+                                    {/*<td className="px-4 py-3.5 text-sm text-gray-500 text-center">
                                         {student.career?.study_plan || 'N/A'}
-                                    </td>
+                                    </td> */}
                                     <td className="px-4 py-3.5 text-sm text-gray-600 text-center">
                                         {student.semester}
                                     </td>
@@ -161,6 +157,12 @@ export default function Index({ students = [] }) {
                                                 No elegible
                                             </span>
                                         )}
+                                    </td>
+                                    {/*AQUI VA EL GRUPO EN EL QUE VA EL ALUMNO, AL PRINCIPIO DEBE DECIR POR ASIGNAR
+                                    Y CUANDO SE CARGUE TODO EL ALGORITMO YA DEBE APARECER EL GRUPO EN EL QUE ESTA EL 
+                                    ALUMNO*/}
+                                    <td className="px-4 py-3.5 text-sm text-gray-600 text-center font-medium">
+                                        {student.level?.name || 'N/A'}
                                     </td>
                                 </tr>
                             ))

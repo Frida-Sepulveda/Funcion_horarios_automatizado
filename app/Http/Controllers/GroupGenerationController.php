@@ -21,34 +21,47 @@ class GroupGenerationController extends Controller
 
                 $groupedStudents = $students->groupBy(function ($student) {
 
-                    return
-                        $student->level_id .
-                        '-' .
-                        $student->modality;
+                    return $student->level_id . '-' .
+                        $student->modality . '-' .
+                        $student->schedule_type . '-' .
+                        $student->shift;
                 });
-
+                {/* PARA COMPROBAR CUANTOS ALUMNOS HAY EN CADA NIVEL
+                dd(
+                    $groupedStudents->map(fn($group) => $group->count())
+                );*/}
 
                 foreach ($groupedStudents as $groupStudents) {
-
+                    if ($groupStudents->count() < 15) {
+                        continue;
+                    }
 
                     $chunks = $groupStudents->chunk(25);
 
                     foreach ($chunks as $index => $chunk) {
 
+                        /*Evitar grupos menores a 15 alumnos*/
+
+                        if ($chunk->count() < 15) {
+                            continue;
+                        }
+
                         $firstStudent = $chunk->first();
 
-                        /*
-                        GENERAR CLAVE DEL GRUPO
-                        */
+                        $groupCount = AcademicGroup::where('level_id', $firstStudent->level_id)
+                        ->count() + 1;
 
                         $groupKey =
                             $firstStudent->level->name .
                             '-' .
-                            str_pad($index + 1, 2, '0', STR_PAD_LEFT);
-
+                            $firstStudent->schedule_type .
+                            '-' .
+                            substr($firstStudent->shift, 0, 1) .
+                            '-' .
+                            str_pad($groupCount, 2, '0', STR_PAD_LEFT);
 
                         $existingGroup = AcademicGroup::where('group_key', $groupKey)
-                        ->exists();
+                            ->exists();
 
                         if ($existingGroup) {
                             continue;
@@ -61,11 +74,11 @@ class GroupGenerationController extends Controller
                             'modality' => $firstStudent->modality,
 
                             'schedule_type' =>
-                                $firstStudent->schedule_type
+                            $firstStudent->schedule_type
                                 ?? 'LM',
 
                             'shift' =>
-                                $firstStudent->shift
+                            $firstStudent->shift
                                 ?? 'Manana',
 
                             'max_students' => 25,
@@ -76,9 +89,7 @@ class GroupGenerationController extends Controller
                         ]);
 
                         foreach ($chunk as $student) {
-                        /* Mas adelante se recomienda cambiar attach()
-                        por sync() para inserciones masivas, de momento 
-                        nosotras lo dejas así para el proyecto*/
+
                             $group->students()->attach($student->id);
                         }
                     }

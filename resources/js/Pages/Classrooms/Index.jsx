@@ -62,7 +62,7 @@ export default function Index({ classrooms = [] }) {
                             onClick={() => setIsModalOpen(true)}
                             className="bg-[#0f2c59] hover:bg-[#0b2244] text-white px-4 py-2 rounded-md font-medium text-sm flex items-center gap-1 shadow-sm transition"
                         >
-                            <span className="text-lg font-light">+</span> Crear Grupo
+                            <span className="text-lg font-light">+</span> Nueva Aula
                         </button>
                     </div>
 
@@ -74,21 +74,17 @@ export default function Index({ classrooms = [] }) {
                             </span>
                             <input 
                                 type="text" 
-                                placeholder="Buscar grupo, docente, horario o alumno..." 
+                                placeholder="Buscar aula" 
                                 className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-gray-600 placeholder-gray-400"
                             />
                         </div>
 
-                        <select className="px-3 py-2 bg-slate-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-blue-500 min-w-[150px]">
-                            <option>Todos los estados</option>
-                        </select>
+                        {/*<select className="px-3 py-2 bg-slate-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-blue-500 min-w-[150px]">
+                            <option>Orden: Horario</option>
+                        </select> */}
 
                         <select className="px-3 py-2 bg-slate-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-blue-500 min-w-[150px]">
-                            <option>Todos los niveles</option>
-                        </select>
-
-                        <select className="px-3 py-2 bg-slate-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-blue-500 min-w-[150px]">
-                            <option>Orden: Por defecto</option>
+                            <option>Tipo de modalidad</option>
                         </select>
                     </div>
 
@@ -123,18 +119,10 @@ export default function Index({ classrooms = [] }) {
                                 </div>
 
                                 <div className="p-4 space-y-3 text-sm flex-1">
-                                    <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                                        <span className="text-gray-400 flex items-center gap-1.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                                            Docente:
-                                        </span>
-                                        <span className="font-semibold text-slate-700">Docente sin asignar</span>
-                                    </div>
-
-                                    <div className="flex justify-between items-start border-b border-gray-50 pb-2">
+                                    {/*<div className="flex justify-between items-start border-b border-gray-50 pb-2">
                                         <span className="text-gray-400">Horario:</span>
                                         <span className="font-medium text-slate-700 text-right">Lunes y Miércoles 16:00 - 18:00</span>
-                                    </div>
+                                    </div>*/}
 
                                     <div className="flex justify-between items-center border-b border-gray-50 pb-2">
                                         <span className="text-gray-400">Modalidad:</span>
@@ -195,7 +183,7 @@ export default function Index({ classrooms = [] }) {
                             {/* Encabezado del Recuadro con la 'X' para cerrar */}
                             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
                                 <h1 className="text-xl font-bold text-slate-800">
-                                    agregar maestro
+                                    Agregar aula
                                 </h1>
                                 <button 
                                     type="button"
@@ -212,8 +200,8 @@ export default function Index({ classrooms = [] }) {
                                 {/* SECCIÓN 1: DATOS GENERALES DEL AULA */}
                                 <div>
                                     <div className="mb-4">
-                                        <h2 className="text-md font-semibold text-gray-800">Datos del Docente</h2>
-                                        <p className="text-xs text-gray-400 mt-0.5">Identificación y contacto para su registro.</p>
+                                        <h2 className="text-md font-semibold text-gray-800">Información de la nueva aula</h2>
+                                        <p className="text-xs text-gray-400 mt-0.5">Identificación para su registro.</p>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

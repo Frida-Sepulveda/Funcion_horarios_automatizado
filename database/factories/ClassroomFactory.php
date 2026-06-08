@@ -20,13 +20,19 @@ class ClassroomFactory extends Factory
                 'name' => fake()->randomElement([
                     'Virtual-1',
                     'Virtual-2',
-                    'Sala Teams',
-                    'Meet-1'
+                    'Virtual-3',
+                    'Virtual-4',
+                    'Virtual-5',
+                    'Virtual-6',
+                    'Virtual-7',
+                    'Virtual-8',
+                    'Virtual-9',
+                    'Virtual-10'
                 ]),
 
                 'building' => null,
 
-                'max_capacity' => fake()->numberBetween(50, 200),
+                'max_capacity' => fake()->numberBetween(30, 50),
 
                 'type' => 'Virtual',
 
@@ -48,7 +54,11 @@ class ClassroomFactory extends Factory
                 'Y3',
                 'Y4',
                 'Y5',
-                'Y6'
+                'Y6',
+                'Y7',
+                'Y8',
+                'Y9',
+                'Y10',
             ]),
 
             'building' => fake()->randomElement([
@@ -56,7 +66,7 @@ class ClassroomFactory extends Factory
                 'Edificio Z'
             ]),
 
-            'max_capacity' => fake()->numberBetween(20, 100),
+            'max_capacity' => fake()->numberBetween(15, 40),
 
             'type' => 'Presencial',
 

@@ -30,3 +30,18 @@ Route::post(
     '/schedules/generate',
     [ScheduleGenerationController::class, 'generate']
 );
+
+Route::post(
+    '/schedules/confirm',
+    [ScheduleGenerationController::class, 'confirm']
+);
+
+Route::get(
+    '/schedules/export/excel',
+    [ScheduleGenerationController::class, 'exportExcel']
+);
+
+Route::get(
+    '/schedules/export/pdf',
+    [ScheduleGenerationController::class, 'exportPdf']
+);
