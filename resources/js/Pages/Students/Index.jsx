@@ -3,8 +3,16 @@ import AppLayout from "@/Components/Layout/AppLayout";
 import Button from "@/Components/UI/Button";
 import Table from "@/Components/UI/Table";
 import { router } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Index({ students = [] }) {
+    const [search, setSearch] = useState('');
+
+    const filteredStudents = students.filter((student) =>
+    student.control_number
+        ?.toLowerCase()
+        .includes(search.toLowerCase())
+    );
 
     const exportarCSV = () => {
         if (students.length === 0) {
@@ -23,7 +31,7 @@ export default function Index({ students = [] }) {
             "Estado"
         ];
 
-        const filas = students.map(student => [
+        const filas = filteredStudents.map(student => [
             student.control_number || 'N/A',
             `${student.first_name} ${student.last_name}`,
             student.email,
@@ -88,14 +96,16 @@ export default function Index({ students = [] }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
-                        <input 
-                            type="text" 
-                            placeholder="Buscar alumno por No. Control" 
+                        <input
+                            type="text"
+                            placeholder="Buscar alumno por No. Control"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                             className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#0f2c59] text-gray-600 placeholder-gray-400"
                         />
                     </div>
 
-                    {/* Botonera de acciones (Solo con el botón de exportar y crear grupos) */}
+                    {/* Botonera de acciones (Solo con el botón de exportar) */}
                     <div className="flex items-center gap-2 self-end md:self-auto">
                         <button
                             type="button"
@@ -107,11 +117,6 @@ export default function Index({ students = [] }) {
                             </svg>
                             Exportar
                         </button>
-                        <Button onClick={() => router.post('/groups/generate')}>
-
-                            Crear grupos 👥
-
-                        </Button>
                     </div>
                 </div>
 
@@ -121,6 +126,7 @@ export default function Index({ students = [] }) {
                         "No. Control",
                         "Nombre",
                         "Carrera",
+                        "Plan",
                         "Semestre",
                         "Nivel",
                         "Estado",
@@ -138,9 +144,9 @@ export default function Index({ students = [] }) {
                                     <td className="px-4 py-3.5 text-sm text-gray-600"> 
                                         {student.career?.name || 'N/A'}
                                     </td>
-                                    {/*<td className="px-4 py-3.5 text-sm text-gray-500 text-center">
+                                    <td className="px-4 py-3.5 text-sm text-gray-500 text-center">
                                         {student.career?.study_plan || 'N/A'}
-                                    </td> */}
+                                    </td> 
                                     <td className="px-4 py-3.5 text-sm text-gray-600 text-center">
                                         {student.semester}
                                     </td>
@@ -158,11 +164,16 @@ export default function Index({ students = [] }) {
                                             </span>
                                         )}
                                     </td>
-                                    {/*AQUI VA EL GRUPO EN EL QUE VA EL ALUMNO, AL PRINCIPIO DEBE DECIR POR ASIGNAR
-                                    Y CUANDO SE CARGUE TODO EL ALGORITMO YA DEBE APARECER EL GRUPO EN EL QUE ESTA EL 
-                                    ALUMNO*/}
-                                    <td className="px-4 py-3.5 text-sm text-gray-600 text-center font-medium">
-                                        {student.level?.name || 'N/A'}
+                                    <td className="px-4 py-3.5 text-sm text-center font-medium">
+                                        {student.groups?.length > 0 ? (
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                                                {student.groups[0].group_key}
+                                            </span>
+                                        ) : (
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
+                                                Por asignar
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                             ))

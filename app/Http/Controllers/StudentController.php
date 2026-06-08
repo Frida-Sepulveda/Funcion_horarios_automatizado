@@ -11,7 +11,7 @@ class StudentController extends Controller
     public function index()
     {
         // Traemos solo los elegibles y cargamos su carrera vinculada
-        $students = Student::with(['career', 'level'])
+        $students = Student::with(['career', 'level', 'groups.level'])
             ->where('status', 'Elegible')
             ->get();
 

@@ -45,3 +45,8 @@ Route::get(
     '/schedules/export/pdf',
     [ScheduleGenerationController::class, 'exportPdf']
 );
+
+Route::delete(
+    '/groups/clear',
+    [GroupGenerationController::class, 'clear']
+);

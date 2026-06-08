@@ -1,25 +1,42 @@
 import AppLayout from "@/Components/Layout/AppLayout";
 //import Navbar from "@/Components/Layout/Navbar";
-import { Link } from '@inertiajs/react';
 import Button from "@/Components/UI/Button";
-import { router } from '@inertiajs/react';
 import { useState } from 'react'; 
 import ScheduleModal from "@/Components/Modales/ScheduleModal"; 
+import { Link, router, usePage } from '@inertiajs/react';
 
 // CORRECCIÓN 1: Recibir summaryData con un objeto vacío por defecto para que no truene al recargar
 export default function Dashboard({ groups = [], summaryData = {} }) {
     // Estado local para controlar el modal
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { flash = {} } = usePage().props;
 
     // Función para manejar la ejecución del backend
     const handleGenerateSchedules = () => {
+
+        if (groups.length === 0) {
+
+            alert(
+                'Primero debes crear grupos antes de generar horarios.'
+            );
+
+            return;
+        }
+
         router.post('/schedules/generate', {}, {
+
             onSuccess: () => {
-                // Al completarse correctamente la petición en Laravel, abrimos el modal
+
                 setIsModalOpen(true);
+
             },
+
             onError: (errors) => {
-                console.error("Error al generar horarios:", errors);
+
+                console.error(
+                    "Error al generar horarios:",
+                    errors
+                );
             }
         });
     };
@@ -37,6 +54,20 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                         Panel administrativo del sistema
                     </p>
                 </div>
+
+                {/* ALERTAS */}
+
+                {flash.success && (
+                    <div className="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-xl mb-6">
+                        {flash.success}
+                    </div>
+                )}
+
+                {flash.error && (
+                    <div className="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-xl mb-6">
+                        {flash.error}
+                    </div>
+                )}
 
                 {/* GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -64,6 +95,40 @@ export default function Dashboard({ groups = [], summaryData = {} }) {
                             Crear horarios 📅
                         </Button>
                     </div>
+
+                </div>
+
+                {/* ACCIONES */}
+                <div className="flex flex-wrap gap-3 mt-8 mb-4">
+
+                    <Button
+                        disabled={groups.length > 0}
+                        className={`${groups.length > 0
+                                ? 'opacity-50 cursor-not-allowed'
+                                : ''
+                            }`}
+                        onClick={() => router.post('/groups/generate')}
+                    >
+                        Crear grupos 👥
+                    </Button>
+
+                    <Button
+                        onClick={() => {
+
+                            if (
+                                confirm(
+                                    '¿Seguro que deseas limpiar todos los grupos y horarios?'
+                                )
+                            ) {
+
+                                router.delete('/groups/clear');
+
+                            }
+
+                        }}
+                    >
+                        Limpiar grupos 🗑️
+                    </Button>
 
                 </div>
 

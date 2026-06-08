@@ -11,6 +11,17 @@ class GroupGenerationController extends Controller
     public function generate()
     {
         try {
+            $existingGroups = AcademicGroup::exists();
+
+            if ($existingGroups) {
+
+                return redirect()
+                    ->back()
+                    ->with(
+                        'error',
+                        'Ya existen grupos generados. Primero debes limpiar los grupos actuales.'
+                    );
+            }
 
             DB::transaction(function () {
 
@@ -112,5 +123,24 @@ class GroupGenerationController extends Controller
                     'Error al generar grupos: ' . $e->getMessage()
                 );
         }
+    }
+
+    public function clear()
+    {
+        DB::transaction(function () {
+
+            DB::table('schedules')->delete();
+
+            DB::table('group_students')->delete();
+
+            DB::table('groups')->delete();
+        });
+
+        return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Grupos eliminados correctamente.'
+            );
     }
 }

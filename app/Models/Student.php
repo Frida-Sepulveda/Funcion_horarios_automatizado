@@ -56,6 +56,16 @@ class Student extends Model
     {
         return $this->belongsTo(Level::class);
     }
+
+    public function groups()
+    { 
+    return $this->belongsToMany(
+        AcademicGroup::class,
+        'group_students',
+        'student_id',
+        'group_id'
+    );
+    }
 }
 // mi codigo 
 /*class Student extends Model
